@@ -34,6 +34,33 @@ struct Value{
     friend std::ostream &operator<<(std::ostream &s, const Value &v);
 };
 
+struct Point{
+	//AttrType type;
+	double x;
+	double y;
+	//public:
+	Point(double xval, double yval) {
+		x = xval;
+		y = yval;
+	}
+	friend std::ostream &operator<<(std::ostream &s, const Point &p);
+};
+
+struct Rect {
+	double x1;
+	double y1;
+	double x2;
+	double y2;
+	Rect(double x1val, double y1val, double x2val, double y2val) {
+		x1 = x1val;
+		y1 = y1val;
+		x2 = x2val;
+		y2 = y2val;
+	}
+	friend std::ostream &operator<<(std::ostream &s, const Rect &rt);
+
+};
+
 struct Condition{
     RelAttr  lhsAttr;    /* left-hand side attribute            */
     CompOp   op;         /* comparison operator                 */

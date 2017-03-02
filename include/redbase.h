@@ -60,7 +60,9 @@ const int ALL_PAGES = -1;
 enum AttrType {
     INT,
     FLOAT,
-    STRING
+    STRING,
+	POINT,
+	RECT
 };
 
 //
@@ -68,7 +70,7 @@ enum AttrType {
 //
 enum CompOp {
     NO_OP,                                      // no comparison
-    EQ_OP, NE_OP, LT_OP, GT_OP, LE_OP, GE_OP    // binary atomic operators
+    EQ_OP, NE_OP, LT_OP, GT_OP, LE_OP, GE_OP, OVERLAP_OP    // binary atomic operators
 };
 
 //
@@ -77,6 +79,20 @@ enum CompOp {
 enum ClientHint {
     NO_HINT                                     // default value
 };
+
+/*
+//
+// Point data type
+//
+class Point {
+	double x;
+	double y;
+public:
+	Point(double xval, double yval){
+		x = xval;
+		y = yval;
+	}
+*/
 
 //
 // TRUE, FALSE and BOOLEAN

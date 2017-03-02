@@ -2465,6 +2465,8 @@ ostream &operator<<(ostream &s, const AttrInfo &ai)
       s << " attrName=" << ai.attrName
       << " attrType=" << 
       (ai.attrType == INT ? "INT" :
+	   ai.attrType == POINT ? "POINT" :
+	   ai.attrType == RECT ? "RECT" :
        ai.attrType == FLOAT ? "FLOAT" : "STRING")
       << " attrLength=" << ai.attrLength;
 }
@@ -2500,6 +2502,14 @@ ostream &operator<<(ostream &s, const Value &v)
       case STRING:
          s << " (char *)data=" << (char *)v.data;
          break;
+	  case POINT:
+	     s << "Point (" << p.x << "," << p.y << ")";
+		 break;
+	  case RECT:
+	     s << "Top    Left : (" << rt.x1 << ", " << rt.y1 << ")\n";
+	     s << "Bottom Right: (" << rt.x2 << ", "<<rt.y2 << ")";
+         break;
+
    }
    return s;
 }
@@ -2525,6 +2535,9 @@ ostream &operator<<(ostream &s, const CompOp &op)
       case GE_OP:
          s << " >=";
          break;
+	  case OVERLAP_OP:
+	     s << " Overlap";
+		 break;
       case NO_OP:
          s << " NO_OP";
          break;
@@ -2543,9 +2556,28 @@ ostream &operator<<(ostream &s, const AttrType &at)
          break;
       case STRING:
          s << "STRING";
-         break;
+		 break;
+	  case POINT:
+	     s << "POINT";
+		 break;
+	  case RECT:
+	     s << "RECT";
+         //break;
    }
    return s;
+}
+
+ostream &operator<<(ostream &s, const Point &p)
+{
+	s << "Point (" << p.x << "," << p.y << ")";
+	return s;
+}
+
+ostream &operator<<(ostream &s, const Rect &rt)
+{
+	s << "Top    Left : (" << rt.x1 << ", " << rt.y1 << ")\n";
+	s << "Bottom Right: (" << rt.x2 << ", "<<rt.y2 << ")";
+	return s;
 }
 
 /*
