@@ -202,7 +202,10 @@ QL_Manager *pQlm;          // QL component manager
      T_REAL = 292,
      T_STRING = 293,
      T_QSTRING = 294,
-     T_SHELL_CMD = 295
+     T_SHELL_CMD = 295,
+	 T_OVERLAP = 296,
+	 T_POINT = 297,
+	 T_RECT = 298
    };
 #endif
 /* Tokens.  */
@@ -244,6 +247,9 @@ QL_Manager *pQlm;          // QL component manager
 #define T_STRING 293
 #define T_QSTRING 294
 #define T_SHELL_CMD 295
+#define T_OVERLAP 296
+#define T_POINT 297
+#define T_RECT 298
 
 
 
@@ -260,6 +266,8 @@ typedef union YYSTYPE
     float rval;
     char *sval;
     NODE *n;
+	Point pval;
+	Rect rtval;
 
 
 

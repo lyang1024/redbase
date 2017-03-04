@@ -1,16 +1,18 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include "pf.h"
+#include "redbase.h"
+#include "parser.h"
 #include <stdlib.h>
 #include <cstdio>
 #include <cstring>
 
 // return 0 if not overlap, 1 if overlap
 static int overlap_rect(void *value1, void *value2){
-	Rect *rt1 = *(Rect*)value1;
-	Rect *rt2 = *(Rect*)value2;
-	if (rt1->x1 > rt2->x2 || rt2->x1 > rt1->x2) return 0;
-	if (rt1->y2 > rt2->y1 || rt2->y2 > rt1->y1) return 0;
+	Rect rt1 = *(Rect*)value1;
+	Rect rt2 = *(Rect*)value2;
+	if (rt1.x1 > rt2.x2 || rt2.x1 > rt1.x2) return 0;
+	if (rt1.y2 > rt2.y1 || rt2.y2 > rt1.y1) return 0;
 	return 1;
 }
 

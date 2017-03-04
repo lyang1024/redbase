@@ -61,8 +61,8 @@ enum AttrType {
     INT,
     FLOAT,
     STRING,
-	POINT,
-	RECT
+    POINT,
+    RECT
 };
 
 //
@@ -80,20 +80,44 @@ enum ClientHint {
     NO_HINT                                     // default value
 };
 
-/*
 //
 // Point data type
 //
-class Point {
+/*
+struct Point{
+	//AttrType type;
 	double x;
 	double y;
-public:
-	Point(double xval, double yval){
+	Point(double xval = 0, double yval = 0) {
 		x = xval;
 		y = yval;
 	}
-*/
+	friend std::ostream &operator<<(std::ostream &s, const Point &p);
+};
 
+struct Rect {
+	double x1;
+	double y1;
+	double x2;
+	double y2;
+	Rect(double x1val = 0, double y1val = 0, double x2val = 0, double y2val = 0) {
+		if (x1val < x2val) {
+			x1 = x1val;
+			y1 = y1val;
+			x2 = x2val;
+			y2 = y2val;
+		}
+		else {
+			x1 = x2val;
+			y1 = y2val;
+			x2 = x1val;
+			y2 = y1val;
+		}
+	}
+	friend std::ostream &operator<<(std::ostream &s, const Rect &rt);
+
+};
+*/
 //
 // TRUE, FALSE and BOOLEAN
 //

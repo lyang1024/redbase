@@ -74,7 +74,8 @@
      T_REAL = 292,
      T_STRING = 293,
      T_QSTRING = 294,
-     T_SHELL_CMD = 295
+     T_SHELL_CMD = 295,
+	 T_OVERLAP = 296
    };
 #endif
 /* Tokens.  */
@@ -116,6 +117,7 @@
 #define T_STRING 293
 #define T_QSTRING 294
 #define T_SHELL_CMD 295
+#define T_OVERLAP 296
 
 
 

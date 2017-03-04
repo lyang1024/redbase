@@ -74,6 +74,8 @@ QL_Manager *pQlm;          // QL component manager
     float rval;
     char *sval;
     NODE *n;
+	Point pval;
+	Rect rtval;
 }
 
 %token     
@@ -119,6 +121,10 @@ QL_Manager *pQlm;          // QL component manager
 %token   <sval>   T_STRING
       T_QSTRING
       T_SHELL_CMD
+
+%token   <pval>   T_POINT
+
+%token   <rtval>  T_RECT
 
 %type   <cval>   op
 
