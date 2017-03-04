@@ -5,6 +5,15 @@
 #include <cstdio>
 #include <cstring>
 
+// return 0 if not overlap, 1 if overlap
+static int overlap_rect(void *value1, void *value2){
+	Rect *rt1 = *(Rect*)value1;
+	Rect *rt2 = *(Rect*)value2;
+	if (rt1->x1 > rt2->x2 || rt2->x1 > rt1->x2) return 0;
+	if (rt1->y2 > rt2->y1 || rt2->y2 > rt1->y1) return 0;
+	return 1;
+}
+
 static int compare_string(void *value1, void* value2, int attrLength){
   return strncmp((char *) value1, (char *) value2, attrLength);
 }

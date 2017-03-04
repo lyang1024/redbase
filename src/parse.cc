@@ -2536,7 +2536,7 @@ ostream &operator<<(ostream &s, const CompOp &op)
          s << " >=";
          break;
 	  case OVERLAP_OP:
-	     s << " Overlap";
+	     s << " OVERLAP";
 		 break;
       case NO_OP:
          s << " NO_OP";
@@ -2562,7 +2562,7 @@ ostream &operator<<(ostream &s, const AttrType &at)
 		 break;
 	  case RECT:
 	     s << "RECT";
-         //break;
+         break;
    }
    return s;
 }

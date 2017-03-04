@@ -875,38 +875,43 @@ YY_RULE_SETUP
 case 19:
 YY_RULE_SETUP
 #line 49 "scan.l"
-{BEGIN(shell_cmd);}
+{return T_OVERLAP;}
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
 #line 50 "scan.l"
-{yylval.sval = yytext; return T_SHELL_CMD;}
+{BEGIN(shell_cmd);}
 	YY_BREAK
 case 21:
-/* rule 21 can match eol */
 YY_RULE_SETUP
 #line 51 "scan.l"
-{BEGIN(INITIAL);}
+{yylval.sval = yytext; return T_SHELL_CMD;}
 	YY_BREAK
 case 22:
+/* rule 21 can match eol */
 YY_RULE_SETUP
 #line 52 "scan.l"
+{BEGIN(INITIAL);}
+	YY_BREAK
+case 23:
+YY_RULE_SETUP
+#line 53 "scan.l"
 {return yytext[0];}
 	YY_BREAK
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(comment):
 case YY_STATE_EOF(shell_cmd):
-#line 53 "scan.l"
-{return T_EOF;}
-	YY_BREAK
-case 23:
-YY_RULE_SETUP
 #line 54 "scan.l"
-{printf("illegal character [%c]\n", yytext[0]);}
+{return T_EOF;}
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
 #line 55 "scan.l"
+{printf("illegal character [%c]\n", yytext[0]);}
+	YY_BREAK
+case 25:
+YY_RULE_SETUP
+#line 56 "scan.l"
 ECHO;
 	YY_BREAK
 #line 913 "lex.yy.c"

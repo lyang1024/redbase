@@ -52,10 +52,18 @@ struct Rect {
 	double x2;
 	double y2;
 	Rect(double x1val, double y1val, double x2val, double y2val) {
-		x1 = x1val;
-		y1 = y1val;
-		x2 = x2val;
-		y2 = y2val;
+		if (x1val < x2val) {
+			x1 = x1val;
+			y1 = y1val;
+			x2 = x2val;
+			y2 = y2val;
+		}
+		else {
+			x1 = x2val;
+			y1 = y2val;
+			x2 = x1val;
+			y2 = y1val;
+		}
 	}
 	friend std::ostream &operator<<(std::ostream &s, const Rect &rt);
 

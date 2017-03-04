@@ -36,9 +36,13 @@ private:
 
 
 //struct Point, Rect in parser.h
-//function define in parse.cc: << for value, CompOp, AttrInfo, AttrrType, Point, Rect
+//function define in parse.cc: << for value, CompOp(create "OVERLAP"), AttrInfo, AttrrType, Point, Rect
 //add comparator for type point in file comparators.h, e.g. overlap
 //probably: redbase.h, AttrType, CompOp
+
+//
+//in parse.y
+//value, add point and rect type. Add operator << for point, rect, add in attrtype op?
 
 //ix_internal.h
 

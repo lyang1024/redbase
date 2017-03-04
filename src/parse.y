@@ -101,6 +101,7 @@ QL_Manager *pQlm;          // QL component manager
       T_GT
       T_GE
       T_NE
+	  T_OVERLAP
       T_EOF
       NOTOKEN
       RW_RESET
@@ -508,6 +509,14 @@ value
    {
       $$ = value_node(FLOAT, (void *)& $1);
    }
+   | T_POINT
+   {
+      $$ = value_node(POINT, (void *)& $1);
+   }
+   | T_RECT
+   {
+      $$ = value_node(POINT, (void *)& $1);
+   }
    ;
 
 opt_relname
@@ -545,6 +554,10 @@ op
    | T_NE
    {
       $$ = NE_OP;
+   }
+   | T_OVERLAP
+   {
+      $$ = OVERLAP_OP;
    }
    ;
 
@@ -683,6 +696,9 @@ ostream &operator<<(ostream &s, const CompOp &op)
       case GE_OP:
          s << " >=";
          break;
+	  case OVERLAP_OP:
+	     s << "OVERLAP";
+		 break;
       case NO_OP:
          s << " NO_OP";
          break;
@@ -702,9 +718,29 @@ ostream &operator<<(ostream &s, const AttrType &at)
       case STRING:
          s << "STRING";
          break;
+      case POINT:
+	     s << "POINT";
+		 break;
+	  case RECT:
+	     s << "RECT";
+		 break;
    }
    return s;
 }
+
+ostream &operator<<(ostream &s, const Point &p)
+{
+    s << "Point (" << p.x << "," << p.y << ")";
+	return s;
+}
+
+ostream &operator<<(ostream &s, const Rect &rt)
+{
+    s << "Top    Left : (" << rt.x1 << ", " << rt.y1 << ")\n";
+    s << "Bottom Right: (" << rt.x2 << ", "<<rt.y2 << ")";
+    return s;
+}
+
 
 /*
  * Required by yacc
