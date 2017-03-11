@@ -204,8 +204,7 @@ QL_Manager *pQlm;          // QL component manager
      T_QSTRING = 294,
      T_SHELL_CMD = 295,
 	 T_OVERLAP = 296,
-	 T_POINT = 297,
-	 T_RECT = 298
+	 T_MBR = 297
    };
 #endif
 /* Tokens.  */
@@ -248,8 +247,7 @@ QL_Manager *pQlm;          // QL component manager
 #define T_QSTRING 294
 #define T_SHELL_CMD 295
 #define T_OVERLAP 296
-#define T_POINT 297
-#define T_RECT 298
+#define T_MBR 297
 
 
 
@@ -624,7 +622,7 @@ static const char *const yytname[] =
   "RW_UPDATE", "RW_AND", "RW_INTO", "RW_VALUES", "T_EQ", "T_LT", "T_LE",
   "T_GT", "T_GE", "T_NE", "T_EOF", "NOTOKEN", "RW_RESET", "RW_IO",
   "RW_BUFFER", "RW_RESIZE", "RW_QUERY_PLAN", "RW_ON", "RW_OFF", "T_INT",
-  "T_REAL", "T_STRING", "T_QSTRING", "T_SHELL_CMD", "';'", "'('", "')'",
+  "T_REAL", "T_STRING", "T_QSTRING", "T_SHELL_CMD", "T_OVERLAP", "T_MBR", "';'", "'('", "')'",
   "','", "'*'", "'.'", "$accept", "start", "command", "ddl", "dml",
   "utility", "queryplans", "buffer", "statistics", "createtable",
   "createindex", "droptable", "dropindex", "load", "set", "help", "print",
@@ -645,7 +643,7 @@ static const yytype_uint16 yytoknum[] =
      265,   266,   267,   268,   269,   270,   271,   272,   273,   274,
      275,   276,   277,   278,   279,   280,   281,   282,   283,   284,
      285,   286,   287,   288,   289,   290,   291,   292,   293,   294,
-     295,    59,    40,    41,    44,    42,    46
+     295,   296,   297,    59,    40,    41,    44,    42,    46
 };
 # endif
 
@@ -2166,7 +2164,7 @@ yyreduce:
       (yyval.cval) = NE_OP;
    }
     break;
-
+#line 
 
 
 /* Line 1806 of yacc.c  */

@@ -125,6 +125,8 @@ static int get_id(char *s)
       return yylval.ival = RW_DELETE;
    if(!strcmp(string, "update"))
       return yylval.ival = RW_UPDATE;
+   //if(!strcmp(string, "overlap"))
+      //return yylval.ival = RW_OVERLAP;
    
    /* IO Statistics lexemes */
    if(!strcmp(string, "reset"))

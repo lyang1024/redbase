@@ -61,8 +61,8 @@ enum AttrType {
     INT,
     FLOAT,
     STRING,
-    POINT,
-    RECT
+    //POINT,
+    MBR
 };
 
 //

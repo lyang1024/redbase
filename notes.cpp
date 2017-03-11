@@ -35,16 +35,35 @@ private:
 //*********************my design*************************
 
 
-//struct Point, Rect in parser.h
-//function define in parse.cc: << for value, CompOp(create "OVERLAP"), AttrInfo, AttrrType, Point, Rect
+//struct Rect in parser.h --> extra MBR.h
+//function define in parse.cc: << for value, CompOp(create "OVERLAP"), AttrInfo, AttrrType, Rect
 //add comparator for type point in file comparators.h, e.g. overlap
 //probably: redbase.h, AttrType, CompOp
 
 //
 //in parse.y
-//value, add point and rect type. Add operator << for point, rect, add in attrtype op?
+//value, add rect type. Add operator << for rect, add in attrtype op?
+//NO NEED TO MODIFY parse.cc !!!
 
+//in nodes.cc
+//--in value_node, add support for mbr
+//--in 
+
+// in ql_node.cc
+//add mbr
+
+//in node_comps.h
+//add overlap logic
+
+//in interp.cc
+//--in mk_value, add mbr
+/*
 //ix_internal.h
+
+//an important step: actually parse input
+
+//!!!definitions of different nodes are in nodes.cc
+//while declarations are in parser_internal.h
 
 #ifndef IX_INTERNAL_H
 #define IX_INTERNAL_H
@@ -74,10 +93,8 @@ struct IX_Entry{
 #endif
 
 //end ix_internal.h
-
-
-
-//Q1: Overlap definition
+*/
+//Question:
 
 
 

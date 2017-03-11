@@ -63,3 +63,14 @@ bool nnot_equal(void * value1, void * value2, AttrType attrtype, int attrLength)
       return (strncmp((char *) value1, (char *) value2, attrLength) != 0);
   }
 }
+
+bool noverlap(void * value1, void * value2, AttrType attrtype, int attrLength){
+  if(attrtype == MBR){
+    MBR m1 = *(MBR*)value1;
+	MBR m2 = *(MBR*)value2;
+	return !((m1.x1 > m2.x2 || m2.x1 > m1.x2) || (m1.y2 > m2.y1 || m2.y2 > m1.y1));
+  }
+  else{
+    printf("wrong type!\n");
+  }
+}

@@ -1,14 +1,13 @@
-#include <sys/types.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <cstdio>
-#include <cstring>
-#include <sstream>
-#include <string>
-#include <cfloat>
+#ifndef MBR_H
+#define MBR_H
 
 struct MBR{
-	float position[4];
+	float x1;
+	float x2;
+	float y1;
+	float y2;
 	friend std::ostream &operator<<(std::ostream &s, const MBR &mbr);
 	friend std::sstream &operator>>(std::sstream &s, const MBR &mbr);
-}
+};
+
+#endif

@@ -28,6 +28,7 @@
 #include "ix.h"     // for IX_PrintError
 #include "sm.h"
 #include "ql.h"
+#include "mbr.h"
 
 using namespace std;
 
@@ -74,8 +75,7 @@ QL_Manager *pQlm;          // QL component manager
     float rval;
     char *sval;
     NODE *n;
-	Point pval;
-	Rect rtval;
+	MBR mval;
 }
 
 %token     
@@ -103,7 +103,6 @@ QL_Manager *pQlm;          // QL component manager
       T_GT
       T_GE
       T_NE
-	  T_OVERLAP
       T_EOF
       NOTOKEN
       RW_RESET
@@ -113,6 +112,7 @@ QL_Manager *pQlm;          // QL component manager
       RW_QUERY_PLAN
       RW_ON
       RW_OFF
+	  T_OVERLAP
 
 %token   <ival>   T_INT
 
@@ -122,9 +122,7 @@ QL_Manager *pQlm;          // QL component manager
       T_QSTRING
       T_SHELL_CMD
 
-%token   <pval>   T_POINT
-
-%token   <rtval>  T_RECT
+%token   <mval>  T_MBR
 
 %type   <cval>   op
 
@@ -515,13 +513,9 @@ value
    {
       $$ = value_node(FLOAT, (void *)& $1);
    }
-   | T_POINT
+   | T_MBR
    {
-      $$ = value_node(POINT, (void *)& $1);
-   }
-   | T_RECT
-   {
-      $$ = value_node(POINT, (void *)& $1);
+      $$ = value_node(MBR, (void *)& $1);
    }
    ;
 
@@ -677,6 +671,8 @@ ostream &operator<<(ostream &s, const Value &v)
       case STRING:
          s << " (char *)data=" << (char *)v.data;
          break;
+	  case MBR:
+	     s << " *(MBR *)data=" << *(MBR *)v.data;
    }
    return s;
 }
@@ -724,29 +720,20 @@ ostream &operator<<(ostream &s, const AttrType &at)
       case STRING:
          s << "STRING";
          break;
-      case POINT:
-	     s << "POINT";
-		 break;
-	  case RECT:
-	     s << "RECT";
+	  case MBR:
+	     s << "MBR";
 		 break;
    }
    return s;
 }
-
-ostream &operator<<(ostream &s, const Point &p)
-{
-    s << "Point (" << p.x << "," << p.y << ")";
-	return s;
-}
-
-ostream &operator<<(ostream &s, const Rect &rt)
+/*
+ostream &operator<<(ostream &s, const MBR &rt)
 {
     s << "Top    Left : (" << rt.x1 << ", " << rt.y1 << ")\n";
     s << "Bottom Right: (" << rt.x2 << ", "<<rt.y2 << ")";
     return s;
 }
-
+*/
 
 /*
  * Required by yacc

@@ -32,6 +32,7 @@ extern QL_Manager *pQlm;
 #define E_DUPLICATEATTR     -8
 #define E_TOOLONG           -9
 #define E_STRINGTOOLONG     -10
+#define E_INVMBRSIZE        -11
 
 /*
  * file pointer to which error messages are printed
@@ -446,6 +447,9 @@ static void mk_value(NODE *node, Value &value)
       case STRING:
          value.data = (void *)node->u.VALUE.sval;
          break;
+	  case MBR:
+	     value.data = (void *)node->u.VALUE.mval;
+		 break;
    }
 }
 
@@ -481,6 +485,10 @@ static int parse_format_string(char *format_string, AttrType *type, int *len)
             *type = FLOAT;
             *len = sizeof(float);
             break;
+		 case 'm':
+		    *type = MBR;
+			*len = sizeof(MBR);
+			break;
          case 's':
          case 'c':
             return E_NOLENGTH;
@@ -504,6 +512,11 @@ static int parse_format_string(char *format_string, AttrType *type, int *len)
             if(*len != sizeof(float))
                return E_INVREALSIZE;
             break;
+		 case 'm':
+		    *type = MBR;
+			if(*len != sizeof(MBR))
+			   return E_INVMBRSIZE;
+			break;
          case 's':
          case 'c':
             *type = STRING;
@@ -550,6 +563,10 @@ static void print_error(char *errmsg, RC errval)
          fprintf(ERRFP, "invalid size for REAL attribute (should be %d)\n",
                (int)sizeof(real));
          break;
+	  case E_INVMBRSIZE:
+	     fprintf(ERRFP, "invalid size for MBR attribute (should be %d)\n",
+		       (int)sizeof(MBR));
+	     break;
       case E_INVFORMATSTRING:
          fprintf(ERRFP, "invalid format string\n");
          break;
@@ -692,6 +709,9 @@ static void print_op(CompOp op)
       case GE_OP:
          printf(" >=");
          break;
+	  case OVERLAP_OP:
+	     printf(" OVERLAP");
+		 break;
       case NO_OP:
          printf(" NO_OP");
          break;
@@ -718,6 +738,8 @@ static void print_value(NODE *n)
       case STRING:
          printf(" \"%s\"", n -> u.VALUE.sval);
          break;
+	  case MBR:
+	     printf(" [%f,%f]-[%f,%f]", n -> u.VALUE.mval.x1, n -> u.VALUE.mval.y1, n -> u.VALUE.mval.x2, n -> u.VALUE.mval.y2);
    }
 }
 

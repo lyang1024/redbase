@@ -63,7 +63,8 @@ typedef enum{
     N_VALUE,
     N_RELATION,
     N_STATISTICS,
-    N_LIST
+    N_LIST,
+//	N_OVERLAP
 } NODEKIND;
 
 /*
@@ -139,6 +140,11 @@ typedef struct node{
          struct node *conditionlist;
       } DELETE;
 
+	  /* overlap node
+	  struct{
+	     char *relname;
+	     struct node *relattr;
+*/
       /* update node */
       struct{
          char *relname;
