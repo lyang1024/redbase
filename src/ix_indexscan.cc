@@ -27,6 +27,11 @@ RC IX_IndexScan::OpenScan(const IX_IndexHandle &indexHandle,
                 ClientHint  pinHint)
 {
   // Implement this
+  Rc rc = 0; //
+  if(isOpen) {
+  	return (IX_INVALIDSCAN);
+  }
+
 }
 
 RC IX_IndexScan::GetNextEntry(RID &rid)
