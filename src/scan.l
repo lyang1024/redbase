@@ -1,3 +1,4 @@
+/*definition section, C code, next is rule section, then followed by C code*/
 %{
 /*
  * scan.l: lex spec for RQL
@@ -12,9 +13,11 @@
 #include "redbase.h"          /* parse.h needs the definition of real */
 #include "parser_internal.h"  /* y.tab.h needs the definition of NODE */
 #include "y.tab.h"
+#include "mbr.h"
 
 static int get_id(char *s);   /* defined in scanhelp.c */
 static char *get_qstring(char *qstring, int len);
+static MBR get_mbr(char *input, int len);
 
 %}
 letter               [A-Za-z]
@@ -39,6 +42,8 @@ s_num                [+\-]?{num}
                              return T_QSTRING;}
 \"([^\"\n]|(\"\"))*\n       {printf("newline in string constant\n");}
 {letter}({letter}|{digit}|_)*   {return get_id(yylval.sval = yytext);}
+\{\[{s_num}\.{num},{s_num}\.{num}\],\[{s_num}\.{num}\]\} {yylval.mval = get_mbr(yytext, yyleng);
+                                                          return T_MBR;}
 "<"                  {return T_LT;}
 "<="                 {return T_LE;}
 ">"                  {return T_GT;}
@@ -46,6 +51,7 @@ s_num                [+\-]?{num}
 "="                  {return T_EQ;}
 "!="                 {return T_NE;}
 "<>"                 {return T_NE;}
+"OVERLAP"           {return T_OVERLAP;}
 !                    {BEGIN(shell_cmd);}
 <shell_cmd>[^\n]*    {yylval.sval = yytext; return T_SHELL_CMD;}
 <shell_cmd>\n        {BEGIN(INITIAL);}

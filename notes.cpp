@@ -60,10 +60,13 @@ private:
 /*
 //ix_internal.h
 
-//an important step: actually parse input
-
 //!!!definitions of different nodes are in nodes.cc
 //while declarations are in parser_internal.h
+
+//input format: {[3.4, 4.5],[2.3, 3.1]}
+// in scan.l support for mbr input format
+// in scanhelper.c parse input string into mbr object
+// the overlap key word in input should change to _overlap??
 
 #ifndef IX_INTERNAL_H
 #define IX_INTERNAL_H

@@ -17,7 +17,9 @@
  * size of buffer of strings
  */
 #define MAXCHAR		5000
-
+#include <stdlib.h>
+#include <stdio.h>
+#include "mbr.h"
 /*
  * buffer for string allocation
  */
@@ -211,3 +213,51 @@ static char *mk_string(char *s, int len)
    strncpy(copy, s, len + 1);
    return copy;
 }
+
+static MBR get_mbr(char* input, int len){
+   char *x1c, *x2c, *y1c, *y2c;
+   int i, left, right;
+   i = 0;
+   while(i < len && input[i] != "["){
+      i++;
+   }
+   left = i + 1;
+   while(i < len && input[i] != ","){
+      i++;
+   }
+   right = i - 1;
+   x1c = mk_string(input + left,right - left + 1);
+   left = i + 1;
+   while(i < len && input[i] != "]"){
+      i++;
+   }
+   right = i - 1;
+   y1c = mk_string(input + left,right - left + 1);
+   while(i < len && input[i] != "["){
+     i++;
+   }
+   left = i + 1;
+   while(i < len && input[i] != ","){
+     i++;
+   }
+   right = i - 1;
+   x2c = mk_string(input + left, right - left + 1);
+   left = i + 1;
+   while(i < len && input[i] != "]"){
+     i++;
+   }
+   right = i - 1;
+   y2c = mk_string(input + left, right - left + 1);
+   int x1i, x2i, y1i, y2i;
+   x1i = atof(x1c);
+   x2i = atof(x2c);
+   y1i = atof(y1c);
+   y2i = atof(y2c);
+   MBR mbrval;
+   mbrval.x1 = x1i;
+   mbrval.x2 = x2i;
+   mbrval.y1 = y1i;
+   mbrval.y2 = y2i;
+   return mbrval;
+}
+
