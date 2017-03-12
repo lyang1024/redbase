@@ -97,7 +97,15 @@ struct IX_Entry{
 
 //end ix_internal.h
 */
-//Question:
 
+
+//functions may need to be modified
+
+
+
+where is print_int etc??? -- used in ql_node.cc
+
+In sm_manager:
+recInsert_MBR
 
 

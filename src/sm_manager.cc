@@ -60,14 +60,58 @@ bool recInsert_string(char *location, string value, int length){
   memcpy(location, value.c_str(), value.length()+1);
   return true;
 }
-/*
+
 bool recInsert_MBR(char *location, string value, int length){
   if(value.length() >= length){
-    memcpy(location, value.c_str(), length);
-	return true;
+	return false;
   }
-  mem
-*/
+  string x1c, x2c, y1c, y2c;
+  int i, left, right;
+  i = 0;
+  while(i < length && value[i] != '['){
+     i++;
+  }
+  left = i + 1;
+  while(i < length && value[i] != ','){
+     i++;
+  }
+  right = i - 1;
+  x1c = value.substr(left,right - left + 1);
+  left = i + 1;
+  while(i < length && value[i] != ']'){
+     i++;
+  }
+  right = i - 1;
+  y1c = value.substr(left,right - left + 1);
+  while(i < length && value[i] != '['){
+    i++;
+  }
+  left = i + 1;
+  while(i < length && value[i] != ','){
+    i++;
+  }
+  right = i - 1;
+  x2c = value.substr(left, right - left + 1);
+  left = i + 1;
+  while(i < length && value[i] != ']'){
+    i++;
+  }
+  right = i - 1;
+  y2c = value.substr(left, right - left + 1);
+  int x1i, x2i, y1i, y2i;
+  x1i = atof(x1c.c_str());
+  x2i = atof(x2c.c_str());
+  y1i = atof(y1c.c_str());
+  y2i = atof(y2c.c_str());
+  struct MBR mbrval;
+  mbrval.x1 = x1i;
+  mbrval.x2 = x2i;
+  mbrval.y1 = y1i;
+  mbrval.y2 = y2i;
+  memcpy(location, (char*)&mbrval, length);
+
+  return true; 
+}
 /*
  * Constructor and destructor for SM_Manager
  */
@@ -143,6 +187,8 @@ bool SM_Manager::isValidAttrType(AttrInfo attribute){
   if(type == INT && length == 4)
     return true;
   if(type == FLOAT && length == 4)
+    return true;
+  if(type == MBR && length == sizeof(struct MBR))
     return true;
   if(type == STRING && (length > 0) && length < MAXSTRINGLEN)
     return true;
@@ -616,6 +662,8 @@ RC SM_Manager::PrepareAttr(RelCatEntry *rEntry, Attr* attributes){
     }
     else if(aEntry->attrType == FLOAT)
       attributes[slot].recInsert = &recInsert_float;
+	else if(aEntry->attrType == MBR)
+	  attributes[slot].recInsert = &recInsert_MBR;
     else
       attributes[slot].recInsert = &recInsert_string;
   }
