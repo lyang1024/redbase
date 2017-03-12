@@ -75,7 +75,7 @@ QL_Manager *pQlm;          // QL component manager
     float rval;
     char *sval;
     NODE *n;
-	MBR mval;
+	struct MBR mval;
 }
 
 %token     
@@ -672,7 +672,8 @@ ostream &operator<<(ostream &s, const Value &v)
          s << " (char *)data=" << (char *)v.data;
          break;
 	  case MBR:
-	     s << " *(MBR *)data=" << *(MBR *)v.data;
+	     s << " *(MBR *)data=" << *(struct MBR *)v.data;
+		 break;
    }
    return s;
 }

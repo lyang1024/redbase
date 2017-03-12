@@ -21,6 +21,7 @@
 #include "sm.h"
 #include "ql_node.h"
 #include "ql.h"
+#include "mbr.h"
 #undef max
 #include <vector>
 

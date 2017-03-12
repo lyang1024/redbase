@@ -7,7 +7,7 @@ struct MBR{
 	float y1;
 	float y2;
 	friend std::ostream &operator<<(std::ostream &s, const MBR &mbr);
-	friend std::sstream &operator>>(std::sstream &s, const MBR &mbr);
+	//friend std::sstream &operator>>(std::sstream &s, const MBR &mbr);
 };
 
 #endif

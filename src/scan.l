@@ -17,7 +17,7 @@
 
 static int get_id(char *s);   /* defined in scanhelp.c */
 static char *get_qstring(char *qstring, int len);
-static MBR get_mbr(char *input, int len);
+static struct MBR get_mbr(char *input, int len);
 
 %}
 letter               [A-Za-z]

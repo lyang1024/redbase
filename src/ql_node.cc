@@ -16,6 +16,7 @@
 #include "ql_node.h"
 #include "node_comps.h"
 #include "comparators.h"
+#include "mbr.h"
 
 using namespace std;
 

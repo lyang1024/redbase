@@ -11,6 +11,7 @@
 #define PARSER_INTERNAL_H
 
 #include "parser.h"
+#include "mbr.h"
 
 /*
  * use double for real
@@ -186,6 +187,7 @@ typedef struct node{
          int  ival;
          real rval;
          char *sval;
+		 struct MBR mval;
       } VALUE;
 
       /* relation node */

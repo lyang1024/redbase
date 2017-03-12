@@ -20,6 +20,7 @@
 #include "ix.h"
 #include "sm.h"
 #include "ql_node.h"
+#include "mbr.h"
 
 
 typedef struct QO_Rel{

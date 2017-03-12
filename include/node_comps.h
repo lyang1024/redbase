@@ -3,6 +3,7 @@
 #include "pf.h"
 #include <stdlib.h>
 #include <cstdio>
+#include "mbr.h"
 /*
  * The following functions are comparison functions that return 0 if 
  * the two objects are equal, <0 if the first value is smaller, and
@@ -66,8 +67,8 @@ bool nnot_equal(void * value1, void * value2, AttrType attrtype, int attrLength)
 
 bool noverlap(void * value1, void * value2, AttrType attrtype, int attrLength){
   if(attrtype == MBR){
-    MBR m1 = *(MBR*)value1;
-	MBR m2 = *(MBR*)value2;
+    struct MBR m1 = *(struct MBR*)value1;
+	struct MBR m2 = *(struct MBR*)value2;
 	return !((m1.x1 > m2.x2 || m2.x1 > m1.x2) || (m1.y2 > m2.y1 || m2.y2 > m1.y1));
   }
   else{

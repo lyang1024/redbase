@@ -136,6 +136,7 @@ typedef union YYSTYPE
     float rval;
     char *sval;
     NODE *n;
+	struct MBR mval;
 
 
 

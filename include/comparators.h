@@ -10,8 +10,8 @@
 
 // return 0 if not overlap, 1 if overlap
 static int overlap(void *value1, void *value2){
-	MBR rt1 = *(MBR*)value1;
-	MBR rt2 = *(MBR*)value2;
+	struct MBR rt1 = *(struct MBR*)value1;
+	struct MBR rt2 = *(struct MBR*)value2;
 	if (rt1.x1 > rt2.x2 || rt2.x1 > rt1.x2) return 0;
 	if (rt1.y2 > rt2.y1 || rt2.y2 > rt1.y1) return 0;
 	return 1;
@@ -61,7 +61,7 @@ static bool print_float(void *value, int attrLength){
 }
 
 static bool print_mbr(void *value, int attrLength){
-  MBR temp = *(MBR*)value;
+  struct MBR temp = *(struct MBR*)value;
   printf("[%f,%f]-[%f,%f]",temp.x1,temp.y1,temp.x2,temp.y2);
   return true;
 }

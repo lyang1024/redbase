@@ -97,6 +97,7 @@
 #include "ix.h"     // for IX_PrintError
 #include "sm.h"
 #include "ql.h"
+#include "mbr.h"
 
 using namespace std;
 

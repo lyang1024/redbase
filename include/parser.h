@@ -9,6 +9,7 @@
 #include <iostream>
 #include "redbase.h"
 #include "pf.h"
+#include "mbr.h"
 
 //
 // Structure declarations and output functions
@@ -34,15 +35,16 @@ struct Value{
     friend std::ostream &operator<<(std::ostream &s, const Value &v);
 };
 /*
-struct Rect {
-	double x1;
-	double y1;
-	double x2;
-	double y2;
-	friend std::ostream &operator<<(std::ostream &s, const Rect &rt);
+struct MBR {
+	float x1;
+	float y1;
+	float x2;
+	float y2;
+	friend std::ostream &operator<<(std::ostream &s, const MBR &rt);
 
 };
 */
+
 struct Condition{
     RelAttr  lhsAttr;    /* left-hand side attribute            */
     CompOp   op;         /* comparison operator                 */

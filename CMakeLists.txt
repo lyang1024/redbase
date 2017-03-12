@@ -54,6 +54,7 @@ set(QL_SOURCES
 		src/ql_nodejoin.cc 
 		src/ql_nodesel.cc 
 		src/qo_manager.cc
+		src/mbr.cc
 	)
 
 set(IX_SOURCES
@@ -61,10 +62,15 @@ set(IX_SOURCES
 		src/ix_indexhandle.cc
 		src/ix_indexscan.cc
 		src/ix_error.cc
+		src/mbr.cc
 	)
 set (PARSER_SOURCES
 		src/nodes.cc
 		src/interp.cc
+	)
+
+set (CUSTOMTYPE_SOURCES
+		src/mbr.cc
 	)
 
 # Handle Flex/Bison for Query Parser
@@ -78,6 +84,7 @@ ADD_FLEX_BISON_DEPENDENCY(MyScanner MyParser)
 
 # Create libraries
 add_library(pf STATIC "${PF_SOURCES}")
+add_library(customtype STATIC "${CUSTOMTYPE_SOURCES}")
 add_library(rm STATIC "${RM_SOURCES}")
 add_library(sm STATIC "${SM_SOURCES}")
 add_library(ql STATIC "${QL_SOURCES}")
@@ -85,11 +92,11 @@ add_library(ix STATIC "${IX_SOURCES}")
 add_library(parser STATIC "${PARSER_SOURCES}" ${BISON_MyParser_OUTPUTS} ${FLEX_MyScanner_OUTPUTS})
 
 # Link the Library calls
-target_link_libraries(rm pf sm ql ix parser) 
-target_link_libraries(sm rm ix pf parser)
-target_link_libraries(ql sm)
-target_link_libraries(ix rm)
-target_link_libraries(parser pf)
+target_link_libraries(rm pf sm ql ix parser customtype) 
+target_link_libraries(sm rm ix pf parser customtype)
+target_link_libraries(ql sm customtype)
+target_link_libraries(ix rm customtype)
+target_link_libraries(parser pf customtype)
 
 
 # Compile shells
@@ -98,7 +105,7 @@ add_executable(dbcreate src/dbcreate.cc)
 add_executable(dbdestroy src/dbdestroy.cc)
 
 # Link shells with the libraries
-target_link_libraries(redbase pf rm sm ql ix parser)
-target_link_libraries(dbcreate pf rm sm ql ix parser)
-target_link_libraries(dbdestroy pf rm sm ql ix parser)
+target_link_libraries(redbase pf rm sm ql ix parser customtype)
+target_link_libraries(dbcreate pf rm sm ql ix parser customtype)
+target_link_libraries(dbdestroy pf rm sm ql ix parser customtype)
 

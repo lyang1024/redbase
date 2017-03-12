@@ -14,6 +14,7 @@
 #include "redbase.h"
 #include "parser_internal.h"
 #include "y.tab.h"
+#include "mbr.h"
 
 #include "sm.h"
 #include "ql.h"
@@ -448,7 +449,7 @@ static void mk_value(NODE *node, Value &value)
          value.data = (void *)node->u.VALUE.sval;
          break;
 	  case MBR:
-	     value.data = (void *)node->u.VALUE.mval;
+	     value.data = (void *)&node->u.VALUE.mval;
 		 break;
    }
 }
