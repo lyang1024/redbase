@@ -13,6 +13,63 @@
 #include <string>
 #include <cstdlib>
 #include <cstring>
+#include "mbr.h"
+
+struct IX_IndexHeader{
+	AttrType attr_type;
+	int attr_length;
+	int entryOffset_N;
+	int entryOffset_B;
+
+	//int numEntryOffset_N;
+
+	int M;
+	int m;
+	int Mb;
+
+	PageNum rootPage;
+
+	
+};
+
+struct IX_NodeHeader{
+	bool isLeaf;
+	bool isEmpty;
+	int num_entries; //the number of nonempty entries
+
+	int firstSlot; //the pointer to the first slot, -1 if none
+	int freeSlot; //the pointer to the first free slot
+
+	PageNum parentPage; //convenient for adjusting tree, adjust when parent need splitting
+	int myindex; //index in parent entry, assigned when parent add its entry
+	//MBR mbr;
+	//PageNum prevPage;
+};
+
+struct IX_BucketHeader{
+	int num_entries;
+	
+	int firstSlot;
+	int freeSlot;
+	PageNum nextBucket;
+};
+
+struct IX_NodeEntry{
+	int status; //if the entry contains duplicate values(1) or
+	            //empty(-1) or
+                //singe value(0)	
+	int nextSlot; //the pointer to the next slot (in the node),-1 if reach the end, 0 if not assigned
+	PageNum page; //page number it points to (next level)
+	
+	SlotNum slot; //slot number, not needed for internal node
+    MBR mbr;
+};
+
+struct IX_BucketEntry{
+	int nextSlot;
+	PageNum page;
+	SlotNum slot;
+};
 
 //
 // IX_IndexHandle: IX Index File interface
@@ -30,6 +87,22 @@ public:
 
     // Force index files to disk
     RC ForcePages();
+private:
+	PF_FileHandle pfh;
+	struct IX_IndexHeader header;
+	PF_PageHandle rootPH;
+	//int (*comparator) (void*, void*, int);
+	bool dirtyHeader;
+	
+	//some helper methods
+	RC ChooseLeaf(struct IX_NodeHeader *rHeader, void *pData, struct IX_NodeHeader &result);
+    RC CreateNode(PF_PageHandle &ph, PageNum &page, char *nData, bool isLeaf, PageNum parent);
+	RC InsertToBucket(PageNum bucketPage, const RID &rid);
+	RC CreateBucket(PageNum &page);
+
+	float getArea(void *pData);
+	float getExpansion(void *pData1, void *pData2);
+
 };
 
 //
@@ -78,6 +151,10 @@ public:
 
     // Close an Index
     RC CloseIndex(IX_IndexHandle &indexHandle);
+private:
+	PF_Manager &pfm;
+	RC initIxHandle(IX_IndexHanle &ih, PF_FileHandle &fh, struct IX_IndexHeader* header);
+	RC clearIxHandle(IX_IndexHandle &indexHandle);
 };
 
 //
