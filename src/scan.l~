@@ -42,7 +42,7 @@ s_num                [+\-]?{num}
                              return T_QSTRING;}
 \"([^\"\n]|(\"\"))*\n       {printf("newline in string constant\n");}
 {letter}({letter}|{digit}|_)*   {return get_id(yylval.sval = yytext);}
-\|{s_num}\.{num},{s_num}\.{num}\|{s_num}\.{num},{s_num}\.{num}\| {sscanf(yytext, "|%f,%f|%f,%f|",&yylval.mval.x1,&yylval.mval.y1,&yylval.mval.x2,&yylval.mval.y2);
+\{\[{s_num}\.{num},{s_num}\.{num}\],\[{s_num}\.{num}\]\} {yylval.mval = get_mbr(yytext, yyleng);
                                                           return T_MBR;}
 "<"                  {return T_LT;}
 "<="                 {return T_LE;}
@@ -51,6 +51,7 @@ s_num                [+\-]?{num}
 "="                  {return T_EQ;}
 "!="                 {return T_NE;}
 "<>"                 {return T_NE;}
+"OVERLAP"           {return T_OVERLAP;}
 !                    {BEGIN(shell_cmd);}
 <shell_cmd>[^\n]*    {yylval.sval = yytext; return T_SHELL_CMD;}
 <shell_cmd>\n        {BEGIN(INITIAL);}

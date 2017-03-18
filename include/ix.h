@@ -54,7 +54,7 @@ public:
     // Close index scan
     RC CloseScan();
 private:
-	bool isOpen;
+	//bool isOpen;
 };
 
 //

@@ -218,7 +218,7 @@ static struct MBR get_mbr(char* input, int len){
    char *x1c, *x2c, *y1c, *y2c;
    int i, left, right;
    i = 0;
-   while(i < len && input[i] != '['){
+   while(i < len && input[i] != 'P'){
       i++;
    }
    left = i + 1;
@@ -228,12 +228,12 @@ static struct MBR get_mbr(char* input, int len){
    right = i - 1;
    x1c = mk_string(input + left,right - left + 1);
    left = i + 1;
-   while(i < len && input[i] != ']'){
+   while(i < len && input[i] != 'P'){
       i++;
    }
    right = i - 1;
    y1c = mk_string(input + left,right - left + 1);
-   while(i < len && input[i] != '['){
+   while(i < len && input[i] != 'P'){
      i++;
    }
    left = i + 1;
@@ -243,7 +243,7 @@ static struct MBR get_mbr(char* input, int len){
    right = i - 1;
    x2c = mk_string(input + left, right - left + 1);
    left = i + 1;
-   while(i < len && input[i] != ']'){
+   while(i < len && input[i] != 'P'){
      i++;
    }
    right = i - 1;

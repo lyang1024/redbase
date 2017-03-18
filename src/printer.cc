@@ -9,6 +9,7 @@
 #include <cstring>
 #include <cstdlib>
 #include "printer.h"
+#include "mbr.h"
 
 using namespace std;
 
@@ -163,6 +164,7 @@ void Printer::Print(ostream &c, const void * const data[])
     char str[MAXPRINTSTRING], strSpace[50];
     int i, a;
     float b;
+    struct MBR mbr;
 
     // Increment the number of tuples printed
     iCount++;
@@ -200,6 +202,15 @@ void Printer::Print(ostream &c, const void * const data[])
         if (attributes[i].attrType == FLOAT) {
             memcpy (&b, data[i], sizeof(float));
             sprintf(strSpace, "%f",b);
+            c << strSpace;
+            if (strlen(psHeader[i]) < 12)
+                Spaces(12, strlen(strSpace));
+            else
+                Spaces(strlen(psHeader[i]), strlen(strSpace));
+        }
+        if (attributes[i].attrType == MBR) {
+            memcpy(&mbr, data[i], sizeof(struct MBR));
+            sprintf(strSpace, "|%f,%f|%f,%f|",mbr.x1,mbr.y1,mbr.x2,mbr.y2);
             c << strSpace;
             if (strlen(psHeader[i]) < 12)
                 Spaces(12, strlen(strSpace));

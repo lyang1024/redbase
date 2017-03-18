@@ -188,7 +188,7 @@ bool SM_Manager::isValidAttrType(AttrInfo attribute){
     return true;
   if(type == FLOAT && length == 4)
     return true;
-  if(type == MBR && length == sizeof(struct MBR))
+  if(type == MBR && length == sizeof(MBR))
     return true;
   if(type == STRING && (length > 0) && length < MAXSTRINGLEN)
     return true;
@@ -213,6 +213,7 @@ RC SM_Manager::CreateTable(const char *relName,
     cout << "   attributes[" << i << "].attrName=" << attributes[i].attrName
         << "   attrType="
         << (attributes[i].attrType == INT ? "INT" :
+            attributes[i].attrType == MBR ? "MBR" :
             attributes[i].attrType == FLOAT ? "FLOAT" : "STRING")
         << "   attrLength=" << attributes[i].attrLength << "\n";
 

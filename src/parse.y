@@ -112,7 +112,6 @@ QL_Manager *pQlm;          // QL component manager
       RW_QUERY_PLAN
       RW_ON
       RW_OFF
-	  T_OVERLAP
 
 %token   <ival>   T_INT
 
@@ -555,10 +554,6 @@ op
    {
       $$ = NE_OP;
    }
-   | T_OVERLAP
-   {
-      $$ = OVERLAP_OP;
-   }
    ;
 
 nothing
@@ -699,9 +694,6 @@ ostream &operator<<(ostream &s, const CompOp &op)
       case GE_OP:
          s << " >=";
          break;
-	  case OVERLAP_OP:
-	     s << "OVERLAP";
-		 break;
       case NO_OP:
          s << " NO_OP";
          break;
