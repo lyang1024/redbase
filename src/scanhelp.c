@@ -213,7 +213,7 @@ static char *mk_string(char *s, int len)
    strncpy(copy, s, len + 1);
    return copy;
 }
-
+/*
 static struct MBR get_mbr(char* input, int len){
    char *x1c, *x2c, *y1c, *y2c;
    int i, left, right;
@@ -260,4 +260,4 @@ static struct MBR get_mbr(char* input, int len){
    mbrval.y2 = y2i;
    return mbrval;
 }
-
+*/
