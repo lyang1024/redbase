@@ -1,0 +1,2 @@
+/usr/bin/ar qc libix.a  CMakeFiles/ix.dir/src/ix_manager.cc.o CMakeFiles/ix.dir/src/ix_indexhandle.cc.o CMakeFiles/ix.dir/src/ix_indexscan.cc.o CMakeFiles/ix.dir/src/ix_error.cc.o CMakeFiles/ix.dir/src/mbr.cc.o
+/usr/bin/ranlib libix.a

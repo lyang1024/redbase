@@ -450,6 +450,12 @@ static void mk_value(NODE *node, Value &value)
          break;
 	  case MBR:
 	     value.data = (void *)&node->u.VALUE.mval;
+         /*
+         value.data.x1 = (void *)&node->u.VALUE.mval.x1;
+         value.data.y1 = (void *)&node->u.VALUE.mval.y1;
+         value.data.x2 = (void *)&node->u.VALUE.mval.x2;
+         value.data.y2 = (void *)&node->u.VALUE.mval.y2;
+         */
 		 break;
    }
 }
@@ -488,7 +494,7 @@ static int parse_format_string(char *format_string, AttrType *type, int *len)
             break;
 		 case 'm':
 		    *type = MBR;
-			*len = sizeof(MBR);
+			*len = 16;
 			break;
          case 's':
          case 'c':
@@ -515,7 +521,7 @@ static int parse_format_string(char *format_string, AttrType *type, int *len)
             break;
 		 case 'm':
 		    *type = MBR;
-			if(*len != sizeof(MBR))
+			if(*len != 16)
 			   return E_INVMBRSIZE;
 			break;
          case 's':
@@ -566,7 +572,7 @@ static void print_error(char *errmsg, RC errval)
          break;
 	  case E_INVMBRSIZE:
 	     fprintf(ERRFP, "invalid size for MBR attribute (should be %d)\n",
-		       (int)sizeof(MBR));
+		       (int)sizeof(struct MBR));
 	     break;
       case E_INVFORMATSTRING:
          fprintf(ERRFP, "invalid format string\n");

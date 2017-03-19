@@ -1,0 +1,2 @@
+/usr/bin/ar qc libcustomtype.a  CMakeFiles/customtype.dir/src/mbr.cc.o
+/usr/bin/ranlib libcustomtype.a

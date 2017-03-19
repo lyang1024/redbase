@@ -1,0 +1,2 @@
+/usr/bin/ar qc libsm.a  CMakeFiles/sm.dir/src/sm_manager.cc.o CMakeFiles/sm.dir/src/printer.cc.o CMakeFiles/sm.dir/src/sm_error.cc.o CMakeFiles/sm.dir/src/sm_attriterator.cc.o
+/usr/bin/ranlib libsm.a

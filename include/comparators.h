@@ -11,7 +11,7 @@
 
 // return 0 if not overlap, positive number if overlap
 
-static float get_overlap(void *value1, void *value2){
+static float get_overlap(void *value1, void *value2, int attrLength){
 	struct MBR rt1 = *(struct MBR*)value1;
 	struct MBR rt2 = *(struct MBR*)value2;
 	if (rt1.x1 > rt2.x2 || rt2.x1 > rt1.x2) return 0;
@@ -23,6 +23,14 @@ static float get_overlap(void *value1, void *value2){
     float e1 = mx2 - mx1;
     float e2 = my2 - my1;
 	return e1*e2;
+}
+
+static int overlap(void *value1, void *value2, int attrLength){
+	struct MBR rt1 = *(struct MBR*)value1;
+	struct MBR rt2 = *(struct MBR*)value2;
+	if (rt1.x1 > rt2.x2 || rt2.x1 > rt1.x2) return 0;
+	if (rt1.y2 < rt2.y1 || rt2.y2 < rt1.y1) return 0;
+    return 1;
 }
 
 static int compare_string(void *value1, void* value2, int attrLength){

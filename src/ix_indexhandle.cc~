@@ -131,6 +131,28 @@ RC IX_IndexHandle::ForcePages()
 }
 
 //private helpers
+//for deletion
+RC IX_IndexHandle::FindLeaf(PageNum rootPage, void* pData, const RID &rid, PageNum &result){
+    PF_PageHandle rootPH;
+    struct IX_NodeHeader *rootNH;
+    RC rc = 0;
+    struct MBR tempmbr = *(struct MBR*)pData;
+    if((rc = pfh.GetThisPage(rootPage, rootPH)) || (rc = rootPH.getData((char*&)rootNH)))
+        return rc;
+    struct IX_NodeEntry *entries = (struct IX_NodeEntry*)((char*&)rootNH + header.entryOffset_N);
+    if(rootNH->isLeaf){
+        for(int i = 0; i < rootNH->num_entries; i++){
+            if(IsEqualMBR(tempmbr,entries[i].mbr)){
+                result = rootPage;
+                return rc;
+            }
+        }
+    }
+    else{
+
+
+}
+//for insertion
 RC IX_IndexHandle::CreateNode(PF_PageHandle &ph, PageNum &page, char *nData, bool isLeaf, PageNum parent, int myindex){
     RC rc = 0;
     if((rc = pfh.AllocatePage(ph)) || (rc = ph.GetPageNum(page)))
@@ -196,7 +218,7 @@ RC IX_IndexHandle::ChooseLeaf(struct IX_NodeHeader *rHeader, void *pData, PageNu
 			}
 			index++;
 		}
-		nextPageNum = entries[bestindex].childpage;
+		nextPageNum = entries[bestindex].page;
 		PF_PageHandle nextPH;
 		if((rc = pfh.GetThisPage(nextPageNum, nextPH)) || (rc = nextPH.GetData((char *&)current_h)))
 			return rc;
@@ -295,12 +317,12 @@ float IX_IndexHandle::getExpansion(void *pData1, void *pData2){
 	struct MBR m1 = *(struct MBR*)pData1;
 	struct MBR m2 = *(struct MBR*)pData2;
 
-	float newx2 = rt1.x2 > rt2.x2 ? rt1.x2 : rt2.x2;
-    float newx1 = rt1.x1 < rt2.x1 ? rt1.x1 : rt2.x1;
-    float newy2 = rt1.y2 > rt2.y2 ? rt1.y2 : rt2.y2;
-    float newy1 = rt1.y1 < rt2.y1 ? rt1.y1 : rt2.y1;
+	float newx2 = m1.x2 > m2.x2 ? m1.x2 : m2.x2;
+    float newx1 = m1.x1 < m2.x1 ? m1.x1 : m2.x1;
+    float newy2 = m1.y2 > m2.y2 ? m1.y2 : m2.y2;
+    float newy1 = m1.y1 < m2.y1 ? m1.y1 : m2.y1;
 	float new_area = (newx2 - newx1) * (newy2 - newy1);
-	float old_area = getArea(m1);
+	float old_area = getArea((void*)&m1);
 	return new_area - old_area;
 }
 
@@ -368,12 +390,12 @@ RC IX_IndexHandle::SplitNode(struct IX_NodeHeader *h1, struct IX_NodeHeader *new
         else{
             nextmbr = entries[nextresult].mbr;
         }
-        exp1 = getExpansion((void*)m1, nextmbr);
-        exp2 = getExpansion((void*)m2, nextmbr);
+        exp1 = getExpansion((void*)&m1, (void*)&nextmbr);
+        exp2 = getExpansion((void*)&m2, (void*)&nextmbr);
         if(exp1 == exp2){
-            float area1 = getArea((void*)m1;
-            float area2 = getArea((void*)m2
-            if(area1 == area2))){
+            float area1 = getArea((void*)&m1);
+            float area2 = getArea((void*)&m2);
+            if(area1 == area2){
                 if(g1.size() <= g2.size()){
                     g1.push_back(nextresult);
                     adjustMBR(m1, nextmbr);
@@ -411,11 +433,12 @@ RC IX_IndexHandle::SplitNode(struct IX_NodeHeader *h1, struct IX_NodeHeader *new
     if(h1->isLeaf) isLeaf = true;
     //create this new node, set its index to -1 for now
     //update in adjust tree
+    RC rc = 0;
     if((rc = CreateNode(newPH, newPage, (char*&)newHeader, isLeaf, h1->parentPage, -1))){
         return rc;
     }
     newPageNum = newPage;
-    struct IX_NodeEntry *oldentries = h1->num_entries*malloc(sizeof(struct IX_NodeEntry));
+    struct IX_NodeEntry *oldentries = (struct IX_NodeEntry*)malloc(h1->num_entries*sizeof(struct IX_NodeEntry));
     for(int k = 0; k < h1->num_entries; k++){
         oldentries[k] = entries[k];
     }
@@ -444,14 +467,14 @@ RC IX_IndexHandle::SplitNode(struct IX_NodeHeader *h1, struct IX_NodeHeader *new
         if(previndex != total - 1){
             entries[p].status = oldentries[previndex].status;
             entries[p].page = oldentries[previndex].page;
-            entries[p].childpage = oldentries[previndex].childpage;
+            //entries[p].page = oldentries[previndex].page;
             entries[p].slot = oldentries[previndex].slot;
             entries[p].mbr = oldentries[previndex].mbr;
         }
         else{
             entries[p].status = 0;
+            //entries[p].page = newentry.page;
             entries[p].page = newentry.page;
-            entries[p].childpage = newentry.childpage;
             entries[p].slot = newentry.slot;
             entries[p].mbr = newentry.mbr;
         }
@@ -461,14 +484,14 @@ RC IX_IndexHandle::SplitNode(struct IX_NodeHeader *h1, struct IX_NodeHeader *new
         if(previndex != total - 1){
             newEntries[p].status = oldentries[previndex].status;
             newEntries[p].page = oldentries[previndex].page;
-            newEntries[p].childpage = oldentries[previndex].childpage;
+            //newEntries[p].page = oldentries[previndex].page;
             newEntries[p].slot = oldentries[previndex].slot;
             newEntries[p].mbr = oldentries[previndex].mbr;
         }
         else{
             newEntries[p].status = 0;
             newEntries[p].page = newentry.page;
-            newEntries[p].childpage = newentry.childpage;
+            //newEntries[p].childpage = newentry.childpage;
             newEntries[p].slot = newentry.slot;
             newEntries[p].mbr = newentry.mbr;
         }
@@ -481,8 +504,8 @@ int IX_IndexHandle::PickNext(struct IX_NodeEntry *entries, std::vector<bool> &ta
     int result;
     float maxd = 0;
     if(!table.back()){
-        float d1 = getExpansion((void*)m1, pData);
-        float d2 = getExpansion((void*)m2, pData);
+        float d1 = getExpansion((void*)&m1, pData);
+        float d2 = getExpansion((void*)&m2, pData);
         float diff = d1 > d2 ? d1 - d2 : d2 - d1;
         if(diff > maxd){
             result = table.size() - 1;
@@ -491,8 +514,8 @@ int IX_IndexHandle::PickNext(struct IX_NodeEntry *entries, std::vector<bool> &ta
     }
     while(i < table.size() - 1){
         if(!table[i]){
-            float d1 = getExpansion((void*)m1, (void*)&entries[i].mbr);
-            float d2 = getExpansion((void*)m2, (void*)&entries[i].mbr);
+            float d1 = getExpansion((void*)&m1, (void*)&entries[i].mbr);
+            float d2 = getExpansion((void*)&m2, (void*)&entries[i].mbr);
             float diff = d1 > d2 ? d1 - d2 : d2 - d1;
             if(diff > maxd){
                 result = i;
@@ -607,7 +630,7 @@ RC IX_IndexHandle::AdjustTree(PageNum pn1, PageNum pn2){
     struct IX_NodeHeader *parentHeader;
     if((rc = pfh.GetThisPage(parentPageNum,parentPH)) || (rc = parentPH.GetData((char *&)parentHeader)))
         return rc;
-    if(parentHeader->num_entries != M){
+    if(parentHeader->num_entries != header.M){
         struct IX_NodeEntry *pentries = (struct IX_NodeEntry*)((char*)parentHeader + header.entryOffset_N);
         LL->myindex = parentHeader->freeSlot;
         parentHeader->num_entries++;
@@ -640,4 +663,12 @@ RC IX_IndexHandle::AdjustTree(PageNum pn1, PageNum pn2){
     } 
 } 
 
+bool IX_IndexHandle::IsEqualMBR(struct MBR m1, struct MBR m2){
+    return (m1.x1 == m2.x1 && m1.x2 == m2.x2 && m1.y1 == m2.y1 && m1.y2 == m2.y2);
+}
 
+bool overlap(struct MBR rt1, struct MBR rt2){
+	if (rt1.x1 > rt2.x2 || rt2.x1 > rt1.x2) return 0;
+	if (rt1.y2 < rt2.y1 || rt2.y2 < rt1.y1) return 0;
+    return 1;
+}

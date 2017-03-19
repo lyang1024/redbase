@@ -1,0 +1,2 @@
+/usr/bin/ar qc libpf.a  CMakeFiles/pf.dir/src/pf_buffermgr.cc.o CMakeFiles/pf.dir/src/pf_error.cc.o CMakeFiles/pf.dir/src/pf_filehandle.cc.o CMakeFiles/pf.dir/src/pf_pagehandle.cc.o CMakeFiles/pf.dir/src/pf_hashtable.cc.o CMakeFiles/pf.dir/src/pf_manager.cc.o CMakeFiles/pf.dir/src/pf_statistics.cc.o CMakeFiles/pf.dir/src/statistics.cc.o
+/usr/bin/ranlib libpf.a

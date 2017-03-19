@@ -287,7 +287,10 @@ NODE *value_node(AttrType type, void *value)
       n->u.VALUE.sval = (char *)value;
       break;
 	case MBR:
-	  n->u.VALUE.mval = *(struct MBR*)value;
+      n->u.VALUE.mval.x1 = (*(struct MBR*)value).x1;
+      n->u.VALUE.mval.x2 = (*(struct MBR*)value).x2;
+      n->u.VALUE.mval.y1 = (*(struct MBR*)value).y1;
+      n->u.VALUE.mval.y2 = (*(struct MBR*)value).y2;
 	  break;
     }
     return n;

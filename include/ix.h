@@ -77,6 +77,13 @@ private:
     RC AdjustTree(struct IX_NodeHeader *chosenleaf, struct MBR mbr);
     RC AdjustTree(PageNum pn1, PageNum pn2);
 
+    /*
+    RC DeleteFromNode(PageNum nodePage, void* pData, const RID &rid, bool &toDelete);
+    RC FindLeaf(PageNum rootPage, void *pData, const RID &rid, PageNum &result);
+     */
+    bool IsEqualMBR(struct MBR m1, struct MBR m2);
+    bool Overlap(struct MBR rt1, struct MBR rt2);
+	RC DeleteFromBucket(struct IX_BucketHeader *bHeader, const RID &rid, bool &deletePage, RID &lastRID, PageNum &nextPage);
 };
 
 //

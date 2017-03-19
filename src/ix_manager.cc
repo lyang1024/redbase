@@ -149,11 +149,11 @@ RC IX_Manager::OpenIndex(const char *fileName, int indexNo,
 	else if(indexHandle.header.attr_type == FLOAT){
 		indexHandle.comparator = compare_float;
 	}
-	/*
+	
 	else if(indexHandle.header.attr_type == MBR){
-		indexHandle.comparator = get_overlap;
+		indexHandle.comparator = overlap;
 	}
-	*/
+	
 	else{
 		indexHandle.comparator = compare_string;
 	}

@@ -1,0 +1,12 @@
+/home/lyang/Projects/redbase/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/lyang/Projects/redbase/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/lyang/Projects/redbase/cmake-build-debug/CMakeFiles/rm.dir
+/home/lyang/Projects/redbase/cmake-build-debug/CMakeFiles/ql.dir
+/home/lyang/Projects/redbase/cmake-build-debug/CMakeFiles/customtype.dir
+/home/lyang/Projects/redbase/cmake-build-debug/CMakeFiles/sm.dir
+/home/lyang/Projects/redbase/cmake-build-debug/CMakeFiles/ix.dir
+/home/lyang/Projects/redbase/cmake-build-debug/CMakeFiles/redbase.dir
+/home/lyang/Projects/redbase/cmake-build-debug/CMakeFiles/dbcreate.dir
+/home/lyang/Projects/redbase/cmake-build-debug/CMakeFiles/pf.dir
+/home/lyang/Projects/redbase/cmake-build-debug/CMakeFiles/parser.dir
+/home/lyang/Projects/redbase/cmake-build-debug/CMakeFiles/dbdestroy.dir

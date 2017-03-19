@@ -1,0 +1,2 @@
+/usr/bin/ar qc librm.a  CMakeFiles/rm.dir/src/rm_manager.cc.o CMakeFiles/rm.dir/src/rm_filehandle.cc.o CMakeFiles/rm.dir/src/rm_record.cc.o CMakeFiles/rm.dir/src/rm_filescan.cc.o CMakeFiles/rm.dir/src/rm_error.cc.o CMakeFiles/rm.dir/src/rm_rid.cc.o
+/usr/bin/ranlib librm.a

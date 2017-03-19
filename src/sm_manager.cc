@@ -68,7 +68,7 @@ bool recInsert_MBR(char *location, string value, int length){
   string x1c, x2c, y1c, y2c;
   int i, left, right;
   i = 0;
-  while(i < length && value[i] != '['){
+  while(i < length && value[i] != '|'){
      i++;
   }
   left = i + 1;
@@ -78,12 +78,12 @@ bool recInsert_MBR(char *location, string value, int length){
   right = i - 1;
   x1c = value.substr(left,right - left + 1);
   left = i + 1;
-  while(i < length && value[i] != ']'){
+  while(i < length && value[i] != '|'){
      i++;
   }
   right = i - 1;
   y1c = value.substr(left,right - left + 1);
-  while(i < length && value[i] != '['){
+  while(i < length && value[i] != '|'){
     i++;
   }
   left = i + 1;
@@ -93,7 +93,7 @@ bool recInsert_MBR(char *location, string value, int length){
   right = i - 1;
   x2c = value.substr(left, right - left + 1);
   left = i + 1;
-  while(i < length && value[i] != ']'){
+  while(i < length && value[i] != '|'){
     i++;
   }
   right = i - 1;
@@ -188,7 +188,7 @@ bool SM_Manager::isValidAttrType(AttrInfo attribute){
     return true;
   if(type == FLOAT && length == 4)
     return true;
-  if(type == MBR && length == sizeof(MBR))
+  if(type == MBR && length == sizeof(struct MBR))
     return true;
   if(type == STRING && (length > 0) && length < MAXSTRINGLEN)
     return true;

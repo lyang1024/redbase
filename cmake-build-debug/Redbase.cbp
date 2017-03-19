@@ -1,0 +1,655 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="Redbase"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/home/lyang/Projects/redbase/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/home/lyang/Projects/redbase/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/home/lyang/Projects/redbase/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rm">
+				<Option output="/home/lyang/Projects/redbase/cmake-build-debug/librm.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/lyang/Projects/redbase/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DPF_STATS"/>
+					<Add directory="/home/lyang/Projects/redbase/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/usr/include/c++/4.8"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/4.8"/>
+					<Add directory="/usr/include/c++/4.8/backward"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 rm"/>
+					<CompileFile command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rm/fast">
+				<Option output="/home/lyang/Projects/redbase/cmake-build-debug/librm.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/lyang/Projects/redbase/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DPF_STATS"/>
+					<Add directory="/home/lyang/Projects/redbase/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/usr/include/c++/4.8"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/4.8"/>
+					<Add directory="/usr/include/c++/4.8/backward"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 rm/fast"/>
+					<CompileFile command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="ql">
+				<Option output="/home/lyang/Projects/redbase/cmake-build-debug/libql.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/lyang/Projects/redbase/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DPF_STATS"/>
+					<Add directory="/home/lyang/Projects/redbase/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/usr/include/c++/4.8"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/4.8"/>
+					<Add directory="/usr/include/c++/4.8/backward"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 ql"/>
+					<CompileFile command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="ql/fast">
+				<Option output="/home/lyang/Projects/redbase/cmake-build-debug/libql.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/lyang/Projects/redbase/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DPF_STATS"/>
+					<Add directory="/home/lyang/Projects/redbase/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/usr/include/c++/4.8"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/4.8"/>
+					<Add directory="/usr/include/c++/4.8/backward"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 ql/fast"/>
+					<CompileFile command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="customtype">
+				<Option output="/home/lyang/Projects/redbase/cmake-build-debug/libcustomtype.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/lyang/Projects/redbase/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DPF_STATS"/>
+					<Add directory="/home/lyang/Projects/redbase/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/usr/include/c++/4.8"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/4.8"/>
+					<Add directory="/usr/include/c++/4.8/backward"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 customtype"/>
+					<CompileFile command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="customtype/fast">
+				<Option output="/home/lyang/Projects/redbase/cmake-build-debug/libcustomtype.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/lyang/Projects/redbase/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DPF_STATS"/>
+					<Add directory="/home/lyang/Projects/redbase/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/usr/include/c++/4.8"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/4.8"/>
+					<Add directory="/usr/include/c++/4.8/backward"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 customtype/fast"/>
+					<CompileFile command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="sm">
+				<Option output="/home/lyang/Projects/redbase/cmake-build-debug/libsm.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/lyang/Projects/redbase/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DPF_STATS"/>
+					<Add directory="/home/lyang/Projects/redbase/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/usr/include/c++/4.8"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/4.8"/>
+					<Add directory="/usr/include/c++/4.8/backward"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 sm"/>
+					<CompileFile command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="sm/fast">
+				<Option output="/home/lyang/Projects/redbase/cmake-build-debug/libsm.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/lyang/Projects/redbase/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DPF_STATS"/>
+					<Add directory="/home/lyang/Projects/redbase/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/usr/include/c++/4.8"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/4.8"/>
+					<Add directory="/usr/include/c++/4.8/backward"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 sm/fast"/>
+					<CompileFile command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="ix">
+				<Option output="/home/lyang/Projects/redbase/cmake-build-debug/libix.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/lyang/Projects/redbase/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DPF_STATS"/>
+					<Add directory="/home/lyang/Projects/redbase/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/usr/include/c++/4.8"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/4.8"/>
+					<Add directory="/usr/include/c++/4.8/backward"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 ix"/>
+					<CompileFile command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="ix/fast">
+				<Option output="/home/lyang/Projects/redbase/cmake-build-debug/libix.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/lyang/Projects/redbase/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DPF_STATS"/>
+					<Add directory="/home/lyang/Projects/redbase/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/usr/include/c++/4.8"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/4.8"/>
+					<Add directory="/usr/include/c++/4.8/backward"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 ix/fast"/>
+					<CompileFile command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="redbase">
+				<Option output="/home/lyang/Projects/redbase/cmake-build-debug/redbase" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/lyang/Projects/redbase/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DPF_STATS"/>
+					<Add directory="/home/lyang/Projects/redbase/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/usr/include/c++/4.8"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/4.8"/>
+					<Add directory="/usr/include/c++/4.8/backward"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 redbase"/>
+					<CompileFile command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="redbase/fast">
+				<Option output="/home/lyang/Projects/redbase/cmake-build-debug/redbase" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/lyang/Projects/redbase/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DPF_STATS"/>
+					<Add directory="/home/lyang/Projects/redbase/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/usr/include/c++/4.8"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/4.8"/>
+					<Add directory="/usr/include/c++/4.8/backward"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 redbase/fast"/>
+					<CompileFile command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="dbcreate">
+				<Option output="/home/lyang/Projects/redbase/cmake-build-debug/dbcreate" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/lyang/Projects/redbase/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DPF_STATS"/>
+					<Add directory="/home/lyang/Projects/redbase/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/usr/include/c++/4.8"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/4.8"/>
+					<Add directory="/usr/include/c++/4.8/backward"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 dbcreate"/>
+					<CompileFile command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="dbcreate/fast">
+				<Option output="/home/lyang/Projects/redbase/cmake-build-debug/dbcreate" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/lyang/Projects/redbase/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DPF_STATS"/>
+					<Add directory="/home/lyang/Projects/redbase/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/usr/include/c++/4.8"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/4.8"/>
+					<Add directory="/usr/include/c++/4.8/backward"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 dbcreate/fast"/>
+					<CompileFile command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="pf">
+				<Option output="/home/lyang/Projects/redbase/cmake-build-debug/libpf.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/lyang/Projects/redbase/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DPF_STATS"/>
+					<Add directory="/home/lyang/Projects/redbase/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/usr/include/c++/4.8"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/4.8"/>
+					<Add directory="/usr/include/c++/4.8/backward"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 pf"/>
+					<CompileFile command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="pf/fast">
+				<Option output="/home/lyang/Projects/redbase/cmake-build-debug/libpf.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/lyang/Projects/redbase/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DPF_STATS"/>
+					<Add directory="/home/lyang/Projects/redbase/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/usr/include/c++/4.8"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/4.8"/>
+					<Add directory="/usr/include/c++/4.8/backward"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 pf/fast"/>
+					<CompileFile command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="parser">
+				<Option output="/home/lyang/Projects/redbase/cmake-build-debug/libparser.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/lyang/Projects/redbase/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DPF_STATS"/>
+					<Add directory="/home/lyang/Projects/redbase/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/usr/include/c++/4.8"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/4.8"/>
+					<Add directory="/usr/include/c++/4.8/backward"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 parser"/>
+					<CompileFile command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="parser/fast">
+				<Option output="/home/lyang/Projects/redbase/cmake-build-debug/libparser.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/lyang/Projects/redbase/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DPF_STATS"/>
+					<Add directory="/home/lyang/Projects/redbase/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/usr/include/c++/4.8"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/4.8"/>
+					<Add directory="/usr/include/c++/4.8/backward"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 parser/fast"/>
+					<CompileFile command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="dbdestroy">
+				<Option output="/home/lyang/Projects/redbase/cmake-build-debug/dbdestroy" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/lyang/Projects/redbase/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DPF_STATS"/>
+					<Add directory="/home/lyang/Projects/redbase/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/usr/include/c++/4.8"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/4.8"/>
+					<Add directory="/usr/include/c++/4.8/backward"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 dbdestroy"/>
+					<CompileFile command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="dbdestroy/fast">
+				<Option output="/home/lyang/Projects/redbase/cmake-build-debug/dbdestroy" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/lyang/Projects/redbase/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DPF_STATS"/>
+					<Add directory="/home/lyang/Projects/redbase/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/usr/include/c++/4.8"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/4.8"/>
+					<Add directory="/usr/include/c++/4.8/backward"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 dbdestroy/fast"/>
+					<CompileFile command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j4 -f &quot;/home/lyang/Projects/redbase/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/home/lyang/Projects/redbase/src/dbcreate.cc">
+			<Option target="dbcreate"/>
+		</Unit>
+		<Unit filename="/home/lyang/Projects/redbase/src/dbdestroy.cc">
+			<Option target="dbdestroy"/>
+		</Unit>
+		<Unit filename="/home/lyang/Projects/redbase/src/interp.cc">
+			<Option target="parser"/>
+		</Unit>
+		<Unit filename="/home/lyang/Projects/redbase/src/ix_error.cc">
+			<Option target="ix"/>
+		</Unit>
+		<Unit filename="/home/lyang/Projects/redbase/src/ix_indexhandle.cc">
+			<Option target="ix"/>
+		</Unit>
+		<Unit filename="/home/lyang/Projects/redbase/src/ix_indexscan.cc">
+			<Option target="ix"/>
+		</Unit>
+		<Unit filename="/home/lyang/Projects/redbase/src/ix_manager.cc">
+			<Option target="ix"/>
+		</Unit>
+		<Unit filename="/home/lyang/Projects/redbase/src/mbr.cc">
+			<Option target="ql"/>
+			<Option target="customtype"/>
+			<Option target="ix"/>
+		</Unit>
+		<Unit filename="/home/lyang/Projects/redbase/src/nodes.cc">
+			<Option target="parser"/>
+		</Unit>
+		<Unit filename="/home/lyang/Projects/redbase/src/pf_buffermgr.cc">
+			<Option target="pf"/>
+		</Unit>
+		<Unit filename="/home/lyang/Projects/redbase/src/pf_error.cc">
+			<Option target="pf"/>
+		</Unit>
+		<Unit filename="/home/lyang/Projects/redbase/src/pf_filehandle.cc">
+			<Option target="pf"/>
+		</Unit>
+		<Unit filename="/home/lyang/Projects/redbase/src/pf_hashtable.cc">
+			<Option target="pf"/>
+		</Unit>
+		<Unit filename="/home/lyang/Projects/redbase/src/pf_manager.cc">
+			<Option target="pf"/>
+		</Unit>
+		<Unit filename="/home/lyang/Projects/redbase/src/pf_pagehandle.cc">
+			<Option target="pf"/>
+		</Unit>
+		<Unit filename="/home/lyang/Projects/redbase/src/pf_statistics.cc">
+			<Option target="pf"/>
+		</Unit>
+		<Unit filename="/home/lyang/Projects/redbase/src/printer.cc">
+			<Option target="sm"/>
+		</Unit>
+		<Unit filename="/home/lyang/Projects/redbase/src/ql_error.cc">
+			<Option target="ql"/>
+		</Unit>
+		<Unit filename="/home/lyang/Projects/redbase/src/ql_manager.cc">
+			<Option target="ql"/>
+		</Unit>
+		<Unit filename="/home/lyang/Projects/redbase/src/ql_node.cc">
+			<Option target="ql"/>
+		</Unit>
+		<Unit filename="/home/lyang/Projects/redbase/src/ql_nodejoin.cc">
+			<Option target="ql"/>
+		</Unit>
+		<Unit filename="/home/lyang/Projects/redbase/src/ql_nodeproj.cc">
+			<Option target="ql"/>
+		</Unit>
+		<Unit filename="/home/lyang/Projects/redbase/src/ql_noderel.cc">
+			<Option target="ql"/>
+		</Unit>
+		<Unit filename="/home/lyang/Projects/redbase/src/ql_nodesel.cc">
+			<Option target="ql"/>
+		</Unit>
+		<Unit filename="/home/lyang/Projects/redbase/src/qo_manager.cc">
+			<Option target="ql"/>
+		</Unit>
+		<Unit filename="/home/lyang/Projects/redbase/src/redbase.cc">
+			<Option target="redbase"/>
+		</Unit>
+		<Unit filename="/home/lyang/Projects/redbase/src/rm_error.cc">
+			<Option target="rm"/>
+		</Unit>
+		<Unit filename="/home/lyang/Projects/redbase/src/rm_filehandle.cc">
+			<Option target="rm"/>
+		</Unit>
+		<Unit filename="/home/lyang/Projects/redbase/src/rm_filescan.cc">
+			<Option target="rm"/>
+		</Unit>
+		<Unit filename="/home/lyang/Projects/redbase/src/rm_manager.cc">
+			<Option target="rm"/>
+		</Unit>
+		<Unit filename="/home/lyang/Projects/redbase/src/rm_record.cc">
+			<Option target="rm"/>
+		</Unit>
+		<Unit filename="/home/lyang/Projects/redbase/src/rm_rid.cc">
+			<Option target="rm"/>
+		</Unit>
+		<Unit filename="/home/lyang/Projects/redbase/src/sm_attriterator.cc">
+			<Option target="sm"/>
+		</Unit>
+		<Unit filename="/home/lyang/Projects/redbase/src/sm_error.cc">
+			<Option target="sm"/>
+		</Unit>
+		<Unit filename="/home/lyang/Projects/redbase/src/sm_manager.cc">
+			<Option target="sm"/>
+		</Unit>
+		<Unit filename="/home/lyang/Projects/redbase/src/statistics.cc">
+			<Option target="pf"/>
+		</Unit>
+		<Unit filename="/home/lyang/Projects/redbase/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

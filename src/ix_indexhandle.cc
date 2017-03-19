@@ -46,7 +46,7 @@ RC IX_IndexHandle::InsertEntry(void *pData, const RID &rid)
 	struct IX_NodeEntry *entries = (struct IX_NodeEntry*)((char*)chosenleaf + header.entryOffset_N);
 	int index = chosenleaf->firstSlot;
 	while(index != -1){
-		char *value = (char*&)entries[index].mbr;
+		char *value = (char*)&entries[index].mbr;
 		float tempExpansion = getExpansion((void*)value, pData);
 		if(tempExpansion == 0){
 			break;
@@ -120,6 +120,14 @@ RC IX_IndexHandle::InsertEntry(void *pData, const RID &rid)
 RC IX_IndexHandle::DeleteEntry(void *pData, const RID &rid)
 {
   // Implement this
+ /*
+    PageNum rootP = header.rootPage;
+    PageNum leafP;
+    RC rc = 0;
+    rc = FindLeaf(rootP, pData, rid, leafP);
+    if(rc) return rc;
+*/
+
 }
 
 RC IX_IndexHandle::ForcePages()
@@ -131,6 +139,220 @@ RC IX_IndexHandle::ForcePages()
 }
 
 //private helpers
+//for deletion
+/*
+RC IX_IndexHandle::DeleteFromNode(PageNum nodePage, void* pData, const RID &rid, bool &toDelete){
+    PF_PageHandle nodePH;
+    struct IX_NodeHeader *nodeNH;
+    RC rc = 0;
+    PageNum recordPN;
+    SlotNum recordSN;
+    rid.GetPageNum(recordPN);
+    rid.GetSlotNum(recordSN);
+    struct MBR tempmbr = *(struct MBR*)pData;
+    if((rc = pfh.GetThisPage(nodePage, nodePH)) || (rc = nodePH.GetData((char*&)nodeNH)))
+        return rc;
+    struct IX_NodeEntry *entries = (struct IX_NodeEntry*)((char*&)nodeNH + header.entryOffset_N);
+    int i;
+    for(i = 0; i < nodeNH->num_entries; i++){
+        if(IsEqualMBR(tempmbr,entries[i].mbr) && entries[i].page == recordPN){
+            break;
+        }
+    }
+    if(i == nodeNH->num_entries) return 1;
+    int prevIndex;
+    if(i == nodeNH->firstSlot){
+        prevIndex = i;
+    }
+    else {
+        prevIndex = i - 1;
+    }
+    if(entries[i].status == 0){
+        if(recordPN != entries[i].page || recordSN != entries[i].slot){
+            return IX_INVALIDENTRY;
+        }
+        if(i == nodeNH->firstSlot){
+            nodeNH->firstSlot = entries[i].nextSlot;
+        }
+        else{
+            entries[prevIndex].nextSlot = entries[i].nextSlot;
+        }
+        entries[i].nextSlot = nodeNH->freeSlot;
+        nodeNH->freeSlot = i;
+        entries[i].status = -1;
+        nodeNH->num_entries--;
+
+    }
+    else if(entries[i].status == 1){
+        PageNum bucketNum = entries[i].page;
+        PF_PageHandle bucketPH;
+        struct IX_BucketHeader *bHeader;
+        bool deletePage = false;
+        RID lastRID;
+        PageNum nextBucketNum; // Retrieve the bucket header
+        if((rc = pfh.GetThisPage(bucketNum, bucketPH)) || (rc = bucketPH.GetData((char *&)bHeader))){
+            return (rc);
+        }
+        RC rc2 = 0;
+        if((rc2 = pfh.MarkDirty(bucketNum)) || (rc = pfh.UnpinPage(bucketNum)))
+            return (rc2);
+
+        if(rc == IX_INVALIDENTRY) // If it doesnt exist in the bucket, notify the function caller
+            return (IX_INVALIDENTRY);
+
+        if(deletePage){ // If we need to delete the bucket,
+            if((rc = pfh.DisposePage(bucketNum) ))
+                return (rc);
+            // If there are no more buckets, then place the last RID into the leaf page, and
+            // update the isValid flag to OCCUPIED_NEW
+            if(nextBucketNum == -1){
+                entries[i].status = 0;
+                if((rc = lastRID.GetPageNum(entries[i].page)) ||
+                   (rc = lastRID.GetSlotNum(entries[i].slot)))
+                    return (rc);
+            }
+            else // otherwise, set the bucketPointer to the next bucket
+                entries[i].page = nextBucketNum;
+        }
+    }
+    if(nodeNH->num_entries == 0){ // If the leaf is now empty,
+        toDelete = true;          // return the indicator to delete
+        // Update the leaf pointers of its previous and next neighbors
+    }
+    return 0;
+}
+*/
+/*
+RC IX_IndexHandle::DeleteFromBucket(struct IX_BucketHeader *bHeader, const RID &rid,
+                                    bool &deletePage, RID &lastRID, PageNum &nextPage){
+    RC rc = 0;
+    PageNum nextPageNum = bHeader->nextBucket;
+    nextPage = bHeader->nextBucket; // set the nextBucket pointer
+
+    struct Bucket_Entry *entries = (struct Bucket_Entry *)((char *)bHeader + header.entryOffset_B);
+
+    if((nextPageNum != -1)){ // If there's a bucket after this one, search in it first
+        bool toDelete = false; // whether to delete the following bucket
+        PF_PageHandle nextBucketPH;
+        struct IX_BucketHeader *nextHeader;
+        RID last;
+        PageNum nextNextPage; // Get this next bucket
+        if((rc = pfh.GetThisPage(nextPageNum, nextBucketPH)) || (rc = nextBucketPH.GetData((char *&)nextHeader)))
+            return (rc);
+        // Recursively call go delete from this bucket
+        rc = DeleteFromBucket(nextHeader, rid, toDelete, last, nextNextPage);
+
+        int numKeysInNext = nextHeader->num_entries;
+        RC rc2 = 0;
+        if((rc2 = pfh.MarkDirty(nextPageNum)) || (rc2 = pfh.UnpinPage(nextPageNum)))
+            return (rc2);
+
+        // If the following bucket only has one key remaining, and there is space in this
+        // bucket, then put the lastRID into this bucket, and delete the following bucket
+        if(toDelete && bHeader->num_entries < header.Mb && numKeysInNext == 1){
+            int loc = bHeader->freeSlot;
+            if((rc2 = last.GetPageNum(entries[loc].page)) || (rc2 = last.GetSlotNum(entries[loc].slot)))
+                return (rc2);
+
+            bHeader->freeSlot = entries[loc].nextSlot;
+            entries[loc].nextSlot = bHeader->firstSlot;
+            bHeader->firstSlot = loc;
+
+            bHeader->num_entries++;
+            numKeysInNext = 0;
+        }
+        if(toDelete && numKeysInNext == 0){
+            if((rc2 = pfh.DisposePage(nextPageNum)))
+                return (rc2);
+            bHeader->nextBucket = nextNextPage; // make this bucket point to the bucket
+            // the deleted bucket pointed to
+        }
+
+        if(rc == 0) // if we found the value, return
+            return (0);
+    }
+
+    // Otherwise, search in this bucket
+    PageNum ridPage;
+    SlotNum ridSlot;
+    if((rc = rid.GetPageNum(ridPage))|| (rc = rid.GetSlotNum(ridSlot)))
+        return (rc);
+
+    // Search through entire values
+    int prevIndex = -1;
+    int currIndex = bHeader->firstSlot;
+    bool found = false;
+    while(currIndex != -1){
+        if(entries[currIndex].page == ridPage && entries[currIndex].slot == ridSlot){
+            found = true;
+            break;
+        }
+        prevIndex = currIndex;
+        currIndex = entries[prevIndex].nextSlot;
+    }
+
+    // if found, delete from it
+    if(found){
+        if (prevIndex == -1)
+            bHeader->firstSlot = entries[currIndex].nextSlot;
+        else
+            entries[prevIndex].nextSlot = entries[currIndex].nextSlot;
+        entries[currIndex].nextSlot = bHeader->freeSlot;
+        bHeader->freeSlot = currIndex;
+
+        bHeader->num_entries--;
+        // If there is one or less keys in this bucket, mark it for deletion.
+        if(bHeader->num_entries == 1 || bHeader->num_entries == 0){
+            int firstSlot = bHeader->firstSlot;
+            RID last(entries[firstSlot].page, entries[firstSlot].slot);
+            lastRID = last; // Return the last RID to move to the previous bucket
+            deletePage = true;
+        }
+
+        return (0);
+
+    }
+    return (IX_INVALIDENTRY); // if not found, return IX_INVALIDENTRY
+
+}
+*/
+/*
+RC IX_IndexHandle::FindLeaf(PageNum rootPage, void* pData, const RID &rid, PageNum &result){
+    PF_PageHandle rootPH;
+    struct IX_NodeHeader *rootNH;
+    RC rc = 0;
+    PageNum recordPN;
+    rid.GetPageNum(recordPN);
+    struct MBR tempmbr = *(struct MBR*)pData;
+    if((rc = pfh.GetThisPage(rootPage, rootPH)) || (rc = rootPH.GetData((char*&)rootNH)))
+        return rc;
+    struct IX_NodeEntry *entries = (struct IX_NodeEntry*)((char*&)rootNH + header.entryOffset_N);
+    if(rootNH->isLeaf){
+        for(int i = 0; i < rootNH->num_entries; i++){
+            if(IsEqualMBR(tempmbr,entries[i].mbr) && entries[i].page == recordPN){
+                result = rootPage;
+                return rc;
+            }
+        }
+        rc = 1; //not found
+        return rc;
+    }
+    else{
+        for(int i = 0; i < rootNH->num_entries; i++){
+            if(Overlap(tempmbr,entries[i].mbr)){
+                rc = FindLeaf(entries[i].page,pData,rid,result);
+                if(rc == 0){
+                    return rc;
+                }
+            }
+        }
+        rc = 1;
+        return rc;
+    }
+
+}
+ */
+//for insertion
 RC IX_IndexHandle::CreateNode(PF_PageHandle &ph, PageNum &page, char *nData, bool isLeaf, PageNum parent, int myindex){
     RC rc = 0;
     if((rc = pfh.AllocatePage(ph)) || (rc = ph.GetPageNum(page)))
@@ -182,11 +404,11 @@ RC IX_IndexHandle::ChooseLeaf(struct IX_NodeHeader *rHeader, void *pData, PageNu
 		int index = current_h->firstSlot;
 		int bestindex = index;
 		float minExpansion;
-		char *value = (char*&)entries[index].mbr;
+		char *value = (char*)&entries[index].mbr;
 		minExpansion = getExpansion((void*)value, pData);
 		index++;
 		while(index != -1){
-			char *value = (char*&)entries[index].mbr;
+			char *value = (char*)&entries[index].mbr;
 			int tempExpansion = getExpansion((void*)value, pData);
 			if(tempExpansion <= minExpansion){
 				if((tempExpansion == minExpansion && getArea((void*)value) < getArea((void*)&entries[bestindex])) || tempExpansion < minExpansion){
@@ -641,4 +863,12 @@ RC IX_IndexHandle::AdjustTree(PageNum pn1, PageNum pn2){
     } 
 } 
 
+bool IX_IndexHandle::IsEqualMBR(struct MBR m1, struct MBR m2){
+    return (m1.x1 == m2.x1 && m1.x2 == m2.x2 && m1.y1 == m2.y1 && m1.y2 == m2.y2);
+}
 
+bool IX_IndexHandle::Overlap(struct MBR rt1, struct MBR rt2){
+	if (rt1.x1 > rt2.x2 || rt2.x1 > rt1.x2) return 0;
+	if (rt1.y2 < rt2.y1 || rt2.y2 < rt1.y1) return 0;
+    return 1;
+}

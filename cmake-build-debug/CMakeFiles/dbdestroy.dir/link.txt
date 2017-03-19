@@ -1,0 +1,1 @@
+g++    -std=c++11 -g   CMakeFiles/dbdestroy.dir/src/dbdestroy.cc.o  -o dbdestroy libpf.a librm.a libsm.a libql.a libix.a libparser.a libcustomtype.a librm.a libsm.a libql.a libix.a libparser.a libpf.a libcustomtype.a 
