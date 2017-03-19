@@ -9,6 +9,7 @@
 #include <sys/types.h>
 #include "pf.h"
 #include "ix.h"
+#include "ix_internal.h"
 #include <cstdio>
 
 IX_IndexScan::IX_IndexScan()

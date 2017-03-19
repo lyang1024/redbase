@@ -7,21 +7,17 @@
 #include <stdlib.h>
 #include <cstdio>
 #include <cstring>
-//#include <algorithm>
+#include <algorithm>
 
 // return 0 if not overlap, positive number if overlap
 
-static float get_overlap(void *value1, void *value2){
+float get_overlap(void *value1, void *value2){
 	struct MBR rt1 = *(struct MBR*)value1;
 	struct MBR rt2 = *(struct MBR*)value2;
 	if (rt1.x1 > rt2.x2 || rt2.x1 > rt1.x2) return 0;
 	if (rt1.y2 < rt2.y1 || rt2.y2 < rt1.y1) return 0;
-    float mx2 = rt1.x2 < rt2.x2 ? rt1.x2 : rt2.x2;
-    float mx1 = rt1.x1 > rt2.x1 ? rt1.x1 : rt2.x1;
-    float my2 = rt1.y2 < rt2.y2 ? rt1.y2 : rt2.y2;
-    float my1 = rt1.y1 > rt2.y1 ? rt1.y1 : rt2.y1;
-    float e1 = mx2 - mx1;
-    float e2 = my2 - my1;
+    float e1 = min(rt1.x2, rt2.x2) - max(rt1.x1, rt2.x1);
+	float e2 = min(rt1.y2, rt2.y2) - max(rt1.y1, rt2.y2);
 	return e1*e2;
 }
 

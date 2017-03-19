@@ -3,7 +3,22 @@
 
 #include "ix.h"
 
+struct IX_IndexHeader{
+	AttrType attr_type;
+	int attr_length;
+	int entryOffset_N;
+	int entryOffset_B;
 
+	//int numEntryOffset_N;
+
+	int M;
+	int m;
+	int Mb;
+
+	PageNum rootPage;
+
+	
+};
 
 struct IX_NodeHeader{
 	bool isLeaf;

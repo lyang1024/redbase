@@ -12,13 +12,14 @@
 #include <climits>
 #include <string>
 #include <sstream>
+#include <math.h>
 #include <cstdio>
 #include "comparators.h"
+#include "ix_internal.h"
 
 
-IX_Manager::IX_Manager(PF_Manager &pfm) 
+IX_Manager::IX_Manager(PF_Manager &pfm) : pfm(pfm)
 {
-
 }
 
 IX_Manager::~IX_Manager()
@@ -36,7 +37,7 @@ RC IX_Manager::CreateIndex(const char *fileName, int indexNo,
 		return (IX_BADFILENAME);
 	//may check if attr length is correct
 	RC rc = 0;
-	std:string indexname = std::string(filename) + "." + std::to_string(indexNo);
+	std::string indexname = std::string(fileName) + "." + std::to_string(indexNo);
 
 	if((rc = pfm.CreateFile(indexname.c_str())))
 		return rc;
@@ -44,18 +45,21 @@ RC IX_Manager::CreateIndex(const char *fileName, int indexNo,
 	PF_FileHandle fh;
 	PF_PageHandle ph_header;
 	PF_PageHandle ph_root;
-	if((rc = pfm.OpenFile(indexname.c_str(),fh))
+	if((rc = pfm.OpenFile(indexname.c_str(),fh)))
 		return rc;
 	PageNum headerpage;
 	PageNum rootpage;
 	if((rc = fh.AllocatePage(ph_header)) || (rc = ph_header.GetPageNum(headerpage)) || (rc = fh.AllocatePage(ph_root)) || ((rc = ph_root.GetPageNum(rootpage)))){
 		return rc;
 	}
-	struct IX_IndexHeader* *header;
-	struct IX_NodeHeader* *rootheader;
-	struct Node_Entry *entries;
+	struct IX_IndexHeader *header;
+	struct IX_NodeHeader *rootheader;
+	struct IX_NodeEntry *entries;
 	if((rc = ph_header.GetData((char*&) header)) || (rc = ph_root.GetData((char *&) rootheader))){
-		goto exit_now;
+    RC flag;
+	    if((flag = fh.MarkDirty(headerpage)) || (flag = fh.UnpinPage(headerpage)) || (flag = fh.MarkDirty(rootpage)) || (flag = fh.UnpinPage(rootpage)) || (flag = pfm.CloseFile(fh)))
+		    return flag;
+	    return rc;
 	}
 
 	int max_entries = floor((PF_PAGE_SIZE - sizeof(struct IX_NodeHeader))/(sizeof(struct IX_NodeEntry) + attrLength));
@@ -67,26 +71,25 @@ RC IX_Manager::CreateIndex(const char *fileName, int indexNo,
 	header->Mb = max_buckets;
 
 	header->entryOffset_N = sizeof(struct IX_NodeHeader);
-	header->entryOffset_B = sizeof(struct IX_BukcetHeader);
+	header->entryOffset_B = sizeof(struct IX_BucketHeader);
 	//header->numEntryOffset_N = header->entryOffset_N + max_entries*sizeof(
 	header->rootPage = rootpage;
 
 	rootheader->isLeaf = true;
 	rootheader->isEmpty = true;
 	rootheader->num_entries = 0;
-	rootheader->childPage = -1; //no child page for now
-	rootheader->firstslot = -1;
-	rootheader->freeslot = 0;
-	entries = (struct Node_Entry *)((char *)rootheader + header->entryOffset_N);
+	//rootheader->page = -1; //no child page for now
+	rootheader->firstSlot = -1;
+	rootheader->freeSlot = 0;
+	entries = (struct IX_NodeEntry *)((char *)rootheader + header->entryOffset_N);
 	int i;
-	for(i = 0; i < header->max_entries - 1; i++){
+	for(i = 0; i < header->M - 1; i++){
 		entries[i].status = -1;
 		entries[i].page = -1;
 		entries[i].nextSlot = i + 1;
 	}
 	entries[i].nextSlot = -1;
 
-	exit_now:
 	RC flag;
 	if((flag = fh.MarkDirty(headerpage)) || (flag = fh.UnpinPage(headerpage)) || (flag = fh.MarkDirty(rootpage)) || (flag = fh.UnpinPage(rootpage)) || (flag = pfm.CloseFile(fh)))
 		return flag;
@@ -99,8 +102,8 @@ RC IX_Manager::CreateIndex(const char *fileName, int indexNo,
 RC IX_Manager::DestroyIndex(const char *fileName, int indexNo)
 {
 	RC rc = 0;
-	std::string indexname = std::string(filename) + "." + std::to_string(indexNo);
-    if((rc = pfm.DestroyFile(indexname.c_str()))
+	std::string indexname = std::string(fileName) + "." + std::to_string(indexNo);
+    if((rc = pfm.DestroyFile(indexname.c_str())))
 		return rc;
 	return rc;
 }
@@ -115,9 +118,11 @@ RC IX_Manager::OpenIndex(const char *fileName, int indexNo,
     if(fileName == NULL || indexNo < 0){
 		return (IX_BADFILENAME);
 	}
+    /*
 	if(indexHandle.isOpenHandle == true){
 		return (IX_INVALIDINDEXHANDLE);
 	}
+    */
 	RC rc = 0;
 	PF_FileHandle fh;
 	std::string indexname;
@@ -132,10 +137,10 @@ RC IX_Manager::OpenIndex(const char *fileName, int indexNo,
 		pfm.CloseFile(fh);
 		return rc;
 	}
-	struct IX_IndexHeader *header = (struct IX_IndexHeader*) pData;
-	memcpy(indexHandle.header, header, sizeof(struct IX_IndexHeader));
+	struct IX_IndexHeader *iheader = (struct IX_IndexHeader*) pData;
+	memcpy(&indexHandle.header, iheader, sizeof(struct IX_IndexHeader));
 
-	if((rc = fh.GetThisPage(header->rootPage, indexHandle.rootPH)))
+	if((rc = fh.GetThisPage(iheader->rootPage, indexHandle.rootPH)))
 		return rc;
 	
 	if(indexHandle.header.attr_type == INT){
@@ -156,8 +161,8 @@ RC IX_Manager::OpenIndex(const char *fileName, int indexNo,
 	
 	RC flag;
 	if((flag = fh.UnpinPage(firstpage)))
-		return falg;
-	if((rc != 0){
+		return flag;
+	if((rc != 0)){
 		pfm.CloseFile(fh);
 	}
 	return rc;
@@ -183,7 +188,7 @@ RC IX_Manager::CloseIndex(IX_IndexHandle &indexHandle)
 			return rc;
 		if((rc = ph.GetData(pData))){
 			RC flag;
-			if((flag = indexHandle.pfh.UpinPage(page)))
+			if((flag = indexHandle.pfh.UnpinPage(page)))
 				return flag;
 			return flag;
 		}
