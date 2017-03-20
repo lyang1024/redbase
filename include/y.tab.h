@@ -62,20 +62,21 @@
      T_GE = 280,
      T_NE = 281,
      T_EOF = 282,
-     NOTOKEN = 283,
-     RW_RESET = 284,
-     RW_IO = 285,
-     RW_BUFFER = 286,
-     RW_RESIZE = 287,
-     RW_QUERY_PLAN = 288,
-     RW_ON = 289,
-     RW_OFF = 290,
-     T_INT = 291,
-     T_REAL = 292,
-     T_STRING = 293,
-     T_QSTRING = 294,
-     T_SHELL_CMD = 295,
-	 T_MBR = 296,
+     T_OVERLAP = 283,
+     NOTOKEN = 284,
+     RW_RESET = 285,
+     RW_IO = 286,
+     RW_BUFFER = 287,
+     RW_RESIZE = 288,
+     RW_QUERY_PLAN = 289,
+     RW_ON = 290,
+     RW_OFF = 291,
+     T_INT = 292,
+     T_REAL = 293,
+     T_STRING = 294,
+     T_QSTRING = 295,
+     T_SHELL_CMD = 296,
+	 T_MBR = 297,
    };
 #endif
 /* Tokens.  */
@@ -104,20 +105,21 @@
 #define T_GE 280
 #define T_NE 281
 #define T_EOF 282
-#define NOTOKEN 283
-#define RW_RESET 284
-#define RW_IO 285
-#define RW_BUFFER 286
-#define RW_RESIZE 287
-#define RW_QUERY_PLAN 288
-#define RW_ON 289
-#define RW_OFF 290
-#define T_INT 291
-#define T_REAL 292
-#define T_STRING 293
-#define T_QSTRING 294
-#define T_SHELL_CMD 295
-#define T_MBR 296
+#define T_OVERLAP 283
+#define NOTOKEN 284
+#define RW_RESET 285
+#define RW_IO 286
+#define RW_BUFFER 287
+#define RW_RESIZE 288
+#define RW_QUERY_PLAN 289
+#define RW_ON 290
+#define RW_OFF 291
+#define T_INT 292
+#define T_REAL 293
+#define T_STRING 294
+#define T_QSTRING 295
+#define T_SHELL_CMD 296
+#define T_MBR 297
 
 
 

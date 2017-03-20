@@ -478,44 +478,51 @@ RC SM_Manager::GetAttrForRel(RelCatEntry *relEntry, AttrCatEntry *aEntry, std::m
  * contents of the relation into this index
  */
 RC SM_Manager::CreateIndex(const char *relName,
-                           const char *attrName)
-{
+                           const char *attrName) {
   cout << "CreateIndex\n"
-    << "   relName =" << relName << "\n"
-    << "   attrName=" << attrName << "\n";
+       << "   relName =" << relName << "\n"
+       << "   attrName=" << attrName << "\n";
 
   RC rc = 0;
   RM_Record relRec;
   RelCatEntry *rEntry;
-  if((rc = GetRelEntry(relName, relRec, rEntry))) // get the relation info
+  if ((rc = GetRelEntry(relName, relRec, rEntry))) // get the relation info
     return (rc);
 
   // Find the attribute associated with this index
-  RM_Record attrRec; 
+  RM_Record attrRec;
   AttrCatEntry *aEntry;
-  if((rc = FindAttr(relName, attrName, attrRec, aEntry))){
+  if ((rc = FindAttr(relName, attrName, attrRec, aEntry))) {
     return (rc);
   }
 
   // check there isnt already an index
-  if(aEntry->indexNo != NO_INDEXES)
+  if (aEntry->indexNo != NO_INDEXES)
     return (SM_INDEXEDALREADY);
 
   // Create this index
-  if((rc = ixm.CreateIndex(relName, rEntry->indexCurrNum, aEntry->attrType, aEntry->attrLength)))
-    return (rc);
+  if ((rc = ixm.CreateIndex(relName, rEntry->indexCurrNum, aEntry->attrType, aEntry->attrLength))){
+    cout << "failure in ixm.CreateIndex" << "\n";
+  return (rc);
+}
 
   // Gets ready to scan through the file associated with the relation
   IX_IndexHandle ih;
   RM_FileHandle fh;
   RM_FileScan fs;
-  if((rc = ixm.OpenIndex(relName, rEntry->indexCurrNum, ih)))
+  if((rc = ixm.OpenIndex(relName, rEntry->indexCurrNum, ih))){
+    cout << "failure in open index" << "\n";
     return (rc);
-  if((rc = rmm.OpenFile(relName, fh)))
+  }
+  if((rc = rmm.OpenFile(relName, fh))){
+    cout <<"failure in open file"<<"\n";
+
     return (rc);
+  }
 
   // scan through the entire file:
   if((rc = fs.OpenScan(fh, INT, 4, 0, NO_OP, NULL))){
+    cout <<"failure in openscan"<<"\n";
     return (rc);
   }
   RM_Record rec;

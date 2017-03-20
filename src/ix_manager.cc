@@ -12,6 +12,7 @@
 #include <climits>
 #include <string>
 #include <sstream>
+#include <iostream>
 #include <math.h>
 #include <cstdio>
 #include "comparators.h"
@@ -41,7 +42,7 @@ RC IX_Manager::CreateIndex(const char *fileName, int indexNo,
 
 	if((rc = pfm.CreateFile(indexname.c_str())))
 		return rc;
-	
+	//std::cout<<"file allocated -1"<<"\n";
 	PF_FileHandle fh;
 	PF_PageHandle ph_header;
 	PF_PageHandle ph_root;
@@ -52,6 +53,7 @@ RC IX_Manager::CreateIndex(const char *fileName, int indexNo,
 	if((rc = fh.AllocatePage(ph_header)) || (rc = ph_header.GetPageNum(headerpage)) || (rc = fh.AllocatePage(ph_root)) || ((rc = ph_root.GetPageNum(rootpage)))){
 		return rc;
 	}
+	//std::cout<<"file allocated 0"<<"\n";
 	struct IX_IndexHeader *header;
 	struct IX_NodeHeader *rootheader;
 	struct IX_NodeEntry *entries;
@@ -61,8 +63,8 @@ RC IX_Manager::CreateIndex(const char *fileName, int indexNo,
 		    return flag;
 	    return rc;
 	}
-
-	int max_entries = floor((PF_PAGE_SIZE - sizeof(struct IX_NodeHeader))/(sizeof(struct IX_NodeEntry) + attrLength));
+	//std::cout<<"file allocated"<<"\n";
+	int max_entries = floor((PF_PAGE_SIZE - sizeof(struct IX_NodeHeader))/(sizeof(struct IX_NodeEntry)));
 	int max_buckets = floor((PF_PAGE_SIZE - sizeof(struct IX_BucketHeader))/(sizeof(struct IX_BucketEntry)));
 	header->attr_type = attrType;
 	header->attr_length = attrLength;
@@ -89,9 +91,10 @@ RC IX_Manager::CreateIndex(const char *fileName, int indexNo,
 		entries[i].nextSlot = i + 1;
 	}
 	entries[i].nextSlot = -1;
-
+	//std::cout<<"all set"<<"\n";
 	RC flag;
 	if((flag = fh.MarkDirty(headerpage)) || (flag = fh.UnpinPage(headerpage)) || (flag = fh.MarkDirty(rootpage)) || (flag = fh.UnpinPage(rootpage)) || (flag = pfm.CloseFile(fh)))
+		//std::cout<<"here ?"<<"\n";
 		return flag;
 	return rc;
 }
@@ -125,7 +128,7 @@ RC IX_Manager::OpenIndex(const char *fileName, int indexNo,
     */
 	RC rc = 0;
 	PF_FileHandle fh;
-	std::string indexname;
+	std::string indexname =  std::string(fileName) + "." + std::to_string(indexNo);
 	if((rc = pfm.OpenFile(indexname.c_str(),fh)))
 		return rc;
 	PF_PageHandle ph;
@@ -151,7 +154,7 @@ RC IX_Manager::OpenIndex(const char *fileName, int indexNo,
 	}
 	
 	else if(indexHandle.header.attr_type == MBR){
-		indexHandle.comparator = overlap;
+		indexHandle.comparator = compare_overlap;
 	}
 	
 	else{

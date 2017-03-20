@@ -14,6 +14,7 @@
 #include "parser_internal.h"  /* y.tab.h needs the definition of NODE */
 #include "y.tab.h"
 #include "mbr.h"
+#include "parse.hpp"
 
 static int get_id(char *s);   /* defined in scanhelp.c */
 static char *get_qstring(char *qstring, int len);
@@ -51,6 +52,7 @@ s_num                [+\-]?{num}
 "="                  {return T_EQ;}
 "!="                 {return T_NE;}
 "<>"                 {return T_NE;}
+"$"                  {return T_OVERLAP;}
 !                    {BEGIN(shell_cmd);}
 <shell_cmd>[^\n]*    {yylval.sval = yytext; return T_SHELL_CMD;}
 <shell_cmd>\n        {BEGIN(INITIAL);}

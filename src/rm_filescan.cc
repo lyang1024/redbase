@@ -9,6 +9,7 @@
 #include "pf.h"
 #include "rm_internal.h"
 #include <stdlib.h>
+#include <comparators.h>
 
 
 RM_FileScan::RM_FileScan(){
@@ -90,6 +91,14 @@ bool not_equal(void * value1, void * value2, AttrType attrtype, int attrLength){
   }
 }
 
+bool overlap(void *value1, void *value2, AttrType attrtype, int attrLength){
+  struct MBR rt1 = *(struct MBR*)value1;
+  struct MBR rt2 = *(struct MBR*)value2;
+  if (rt1.x1 > rt2.x2 || rt2.x1 > rt1.x2) return 0;
+  if (rt1.y2 < rt2.y1 || rt2.y2 < rt1.y1) return 0;
+  return 1;
+}
+
 /*
  * Sets up the parameters in FileScan to associate it with certain
  * scan parameters. It is an error to reset the scan without closing
@@ -123,6 +132,7 @@ RC RM_FileScan::OpenScan (const RM_FileHandle &fileHandle,
     case GE_OP : comparator = &greater_than_or_eq_to; break;
     case NE_OP : comparator = &not_equal; break;
     case NO_OP : comparator = NULL; break;
+    case OVERLAP_OP : comparator = &overlap; break;
     default: return (RM_INVALIDSCAN);
   }
 

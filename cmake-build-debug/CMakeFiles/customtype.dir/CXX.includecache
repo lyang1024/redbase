@@ -1,0 +1,32 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/mbr.h
+
+/home/lyang/Projects/redbase/src/mbr.cc
+sys/types.h
+-
+unistd.h
+-
+stdlib.h
+-
+cstdio
+-
+cstring
+-
+sstream
+-
+iostream
+-
+string
+-
+cfloat
+-
+mbr.h
+/home/lyang/Projects/redbase/src/mbr.h
+

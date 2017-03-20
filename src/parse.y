@@ -104,6 +104,7 @@ QL_Manager *pQlm;          // QL component manager
       T_GE
       T_NE
       T_EOF
+      T_OVERLAP
       NOTOKEN
       RW_RESET
       RW_IO
@@ -142,7 +143,7 @@ QL_Manager *pQlm;          // QL component manager
       exit
       query
       insert
-      delete 
+      delete
       update
       non_mt_attrtype_list
       attrtype
@@ -223,8 +224,8 @@ utility
    | help
    | print
    | buffer
-   | statistics 
-   | queryplans 
+   | statistics
+   | queryplans
    ;
 
 queryplans
@@ -235,21 +236,21 @@ queryplans
       $$ = NULL;
    }
    | RW_QUERY_PLAN RW_OFF
-   { 
+   {
       bQueryPlans = 0;
       cout << "Query plan display turned off.\n";
       $$ = NULL;
    }
    ;
 
-   
+
 
 buffer
    : RW_RESET RW_BUFFER
    {
       if (pPfm->ClearBuffer())
          cout << "Trouble clearing buffer!  Things may be pinned.\n";
-      else 
+      else
          cout << "Everything kicked out of Buffer!\n";
       $$ = NULL;
    }
@@ -406,7 +407,7 @@ non_mt_select_clause
    {
        $$ = list_node(relattr_node(NULL, (char*)"*"));
    }
-      
+
 
 non_mt_relattr_list
    : relattr ',' non_mt_relattr_list
@@ -554,6 +555,10 @@ op
    {
       $$ = NE_OP;
    }
+   | T_OVERLAP
+   {
+      $$ = OVERLAP_OP;
+   }
    ;
 
 nothing
@@ -610,7 +615,7 @@ void RBparse(PF_Manager &pfm, SM_Manager &smm, QL_Manager &qlm)
       cout << PROMPT;
 
       /* Get the prompt to actually show up on the screen */
-      cout.flush(); 
+      cout.flush();
 
       /* If a query was successfully read, interpret it */
       if(yyparse() == 0 && parse_tree != NULL)
@@ -629,7 +634,7 @@ ostream &operator<<(ostream &s, const AttrInfo &ai)
 {
    return
       s << " attrName=" << ai.attrName
-      << " attrType=" << 
+      << " attrType=" <<
       (ai.attrType == INT ? "INT" :
        ai.attrType == FLOAT ? "FLOAT" : "STRING")
       << " attrLength=" << ai.attrLength;
@@ -693,6 +698,9 @@ ostream &operator<<(ostream &s, const CompOp &op)
          break;
       case GE_OP:
          s << " >=";
+         break;
+      case OVERLAP_OP:
+         s << " $";
          break;
       case NO_OP:
          s << " NO_OP";

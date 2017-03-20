@@ -37,7 +37,8 @@ RC IX_IndexHandle::InsertEntry(void *pData, const RID &rid)
 		return rc;
 	struct IX_NodeHeader *chosenleaf;
     PageNum leafPN;
-	if((rc = ChooseLeaf(rootheader, pData, leafPN)))
+    PageNum rootPN = header.rootPage;
+	if((rc = ChooseLeaf(rootPN, pData, leafPN)))
 		return rc;
     PF_PageHandle leafPH;
 	if((rc = pfh.GetThisPage(leafPN, leafPH)) || (rc = leafPH.GetData((char *&)chosenleaf)))
@@ -394,14 +395,26 @@ RC IX_IndexHandle::FindPrevIndex(struct IX_NodeHeader *nHeader, int thisindex, i
     return 0;
 }
 
-RC IX_IndexHandle::ChooseLeaf(struct IX_NodeHeader *rHeader, void *pData, PageNum &result){
+RC IX_IndexHandle::ChooseLeaf(PageNum rPN, void *pData, PageNum &result){
 	RC rc = 0;
+    IX_NodeHeader *rHeader;
+    PF_PageHandle rHandle;
+    if((rc = pfh.GetThisPage(rPN, rHandle)) || (rc = rHandle.GetData((char *&)rHeader)))
+        return rc;
+    if(rHeader->isLeaf){
+        result = rPN;
+        return rc;
+    }
 	struct IX_NodeHeader *current_h;
 	current_h = rHeader;
     PageNum nextPageNum;
+
 	while(!current_h->isLeaf){
 		struct IX_NodeEntry *entries = (struct IX_NodeEntry*)((char*)current_h + header.entryOffset_N);
 		int index = current_h->firstSlot;
+        if(index == -1){
+
+        }
 		int bestindex = index;
 		float minExpansion;
 		char *value = (char*)&entries[index].mbr;
@@ -425,6 +438,7 @@ RC IX_IndexHandle::ChooseLeaf(struct IX_NodeHeader *rHeader, void *pData, PageNu
 		
 	}
 	result = nextPageNum;
+    return rc;
 }
 
 RC IX_IndexHandle::CreateBucket(PageNum &page){

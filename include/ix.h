@@ -60,7 +60,7 @@ private:
 	
 	
 	//some helper methods
-	RC ChooseLeaf(struct IX_NodeHeader *rHeader, void *pData, PageNum &result);
+	RC ChooseLeaf(PageNum rPN, void *pData, PageNum &result);
     RC CreateNode(PF_PageHandle &ph, PageNum &page, char *nData, bool isLeaf, PageNum parent, int myindex);
 	RC InsertToBucket(PageNum bucketPage, const RID &rid);
 	RC CreateBucket(PageNum &page);

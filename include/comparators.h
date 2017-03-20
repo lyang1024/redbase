@@ -25,7 +25,7 @@ static float get_overlap(void *value1, void *value2, int attrLength){
 	return e1*e2;
 }
 
-static int overlap(void *value1, void *value2, int attrLength){
+static int compare_overlap(void *value1, void *value2, int attrLength){
 	struct MBR rt1 = *(struct MBR*)value1;
 	struct MBR rt2 = *(struct MBR*)value2;
 	if (rt1.x1 > rt2.x2 || rt2.x1 > rt1.x2) return 0;
