@@ -1,0 +1,4 @@
+
+create table b2(area m);
+insert into b2 values(|3.4,4.6|3.8,5.2|);
+create index b2(area);

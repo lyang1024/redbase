@@ -54,7 +54,9 @@ public:
 	PF_PageHandle rootPH;
 	struct IX_IndexHeader header;
     int (*comparator) (void*, void*, int);
-	bool dirtyHeader;
+	//bool dirtyHeader;
+	bool isOpenHandle;
+	bool header_modified;
 private:
 	
 	
@@ -137,6 +139,8 @@ public:
 private:
 	RC initIxHandle(IX_IndexHandle &ih, PF_FileHandle &fh, struct IX_IndexHeader* header);
 	RC clearIxHandle(IX_IndexHandle &indexHandle);
+	RC CleanUpIH(IX_IndexHandle &indexHandle);
+    RC SetUpIH(IX_IndexHandle &ih, PF_FileHandle &fh, struct IX_IndexHeader *header);
 };
 
 //

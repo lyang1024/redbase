@@ -55,6 +55,7 @@ RC IX_IndexHandle::InsertEntry(void *pData, const RID &rid)
 		index = entries[index].nextSlot;
 	}
 	//if there are duplicates
+    header_modified = true;
 	if(index != -1){
 		struct IX_NodeEntry dupEntry = entries[index];
 		//if it already contain duplicate value
@@ -64,6 +65,8 @@ RC IX_IndexHandle::InsertEntry(void *pData, const RID &rid)
 			bucketPage = dupEntry.page;
 			if((rc = InsertToBucket(bucketPage, rid)))
 				return rc;
+            if((rc = pfh.MarkDirty(bucketPage)) || (rc = pfh.UnpinPage(bucketPage)))
+                return (rc);
 		}
 		else {
 			//create a bucket
@@ -74,13 +77,17 @@ RC IX_IndexHandle::InsertEntry(void *pData, const RID &rid)
 			if((rc = InsertToBucket(bucketPage, newrid)) || (rc = InsertToBucket(bucketPage, rid)))
 				return rc;
 			entries[index].page = bucketPage;
+            if((rc = pfh.MarkDirty(bucketPage)) || (rc = pfh.UnpinPage(bucketPage)))
+                return (rc);
+            //if((rc = pfh.MarkDirty(leafPN)) || (rc = pfh.UnpinPage(leafPN)))
+            //    return (rc);
 		}
 	}
 	else{
 	//no duplicate, insert to node directly
 		if(chosenleaf->num_entries == header.M){
 		//unfortunately, node is full
-			PageNum newPage;
+			//PageNum newPage;
             struct IX_NodeHeader *newHeader;
             struct IX_NodeEntry newentry;
             newentry.status = 0;
@@ -91,6 +98,10 @@ RC IX_IndexHandle::InsertEntry(void *pData, const RID &rid)
             PageNum newPageNum;
             SplitNode(chosenleaf,newHeader,newentry,newPageNum);
             AdjustTree(leafPN, newPageNum);
+            if((rc = pfh.MarkDirty(newPageNum)) || (rc = pfh.UnpinPage(newPageNum)))
+                return (rc);
+            //if((rc = pfh.MarkDirty(leafPN)) || (rc = pfh.UnpinPage(leafPN)))
+            //    return (rc);
 			//PageNum parentp = choosenleaf->parentPage;
 			//int newindex = entries[index].nextSlot;
 			//if((rc = CreateNode(newPH, newPage, newData, true, parentp)))
@@ -107,7 +118,7 @@ RC IX_IndexHandle::InsertEntry(void *pData, const RID &rid)
             chosenleaf->freeSlot = entries[newindex].nextSlot;
             int previndex;
             FindPrevIndex(chosenleaf, newindex, previndex);
-            if(previndex == -1){
+            if(previndex < 0){
                 chosenleaf->firstSlot = newindex;
             }
             entries[newindex].mbr = *(struct MBR *)pData;
@@ -115,6 +126,11 @@ RC IX_IndexHandle::InsertEntry(void *pData, const RID &rid)
             AdjustTree(chosenleaf,entries[newindex].mbr);
         }
     }
+    if((rc = pfh.MarkDirty(leafPN)) || (rc = pfh.UnpinPage(leafPN)))
+        return (rc);
+    if((rc = pfh.MarkDirty(header.rootPage)))
+        return (rc);
+    return rc;
 		
 }
 
@@ -437,6 +453,8 @@ RC IX_IndexHandle::ChooseLeaf(PageNum rPN, void *pData, PageNum &result){
 			return rc;
 		
 	}
+    if((rc = pfh.MarkDirty(nextPageNum)) || (rc = pfh.UnpinPage(nextPageNum)))
+        return (rc);
 	result = nextPageNum;
     return rc;
 }
@@ -649,6 +667,9 @@ RC IX_IndexHandle::SplitNode(struct IX_NodeHeader *h1, struct IX_NodeHeader *new
     //update in adjust tree
     RC rc = 0;
     if((rc = CreateNode(newPH, newPage, (char*&)newHeader, isLeaf, h1->parentPage, -1))){
+        if((rc = pfh.MarkDirty(newPage)) || (rc = pfh.UnpinPage(newPage)))
+            return (rc);
+
         return rc;
     }
     newPageNum = newPage;
@@ -710,6 +731,8 @@ RC IX_IndexHandle::SplitNode(struct IX_NodeHeader *h1, struct IX_NodeHeader *new
             newEntries[p].mbr = newentry.mbr;
         }
     }
+    if((rc = pfh.MarkDirty(newPage)) || (rc = pfh.UnpinPage(newPage)))
+        return (rc);
     return rc;
 }
 
@@ -838,6 +861,9 @@ RC IX_IndexHandle::AdjustTree(PageNum pn1, PageNum pn2){
         
         entries[0].mbr = mbr1;
         entries[1].mbr = mbr2;
+        if((rc = pfh.MarkDirty(newParentPN)) || (rc = pfh.UnpinPage(newParentPN)))
+            return (rc);
+
         return rc;
     }
     PF_PageHandle parentPH;
@@ -857,7 +883,7 @@ RC IX_IndexHandle::AdjustTree(PageNum pn1, PageNum pn2){
         struct MBR current_mbr;
         getMBR(pentries, parentHeader->num_entries, current_mbr);
         AdjustTree(parentHeader,current_mbr);
-        return rc;
+        //return rc;
 
     }
     else{
@@ -873,8 +899,11 @@ RC IX_IndexHandle::AdjustTree(PageNum pn1, PageNum pn2){
         PageNum newPageNum;
         SplitNode(parentHeader,newHeader,newentry,newPageNum);
         AdjustTree(parentPageNum, newPageNum);
-        return rc;
-    } 
+        //return rc;
+    }
+    if((rc = pfh.MarkDirty(parentPageNum)) || (rc = pfh.UnpinPage(parentPageNum)))
+        return (rc);
+    return rc;
 } 
 
 bool IX_IndexHandle::IsEqualMBR(struct MBR m1, struct MBR m2){

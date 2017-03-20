@@ -71,7 +71,7 @@ RC QL_Node::PrintCondition(const Condition condition){
       print_float(condition.rhsValue.data, 4);
     }
 	else if(condition.rhsValue.type == MBR){
-	  print_mbr(condition.rhsValue.data, 4);
+	  print_mbr(condition.rhsValue.data, 16);
 	}
     else{
       print_string(condition.rhsValue.data, strlen((const char *)condition.rhsValue.data));
@@ -158,6 +158,7 @@ RC QL_Node::CheckConditions(char *recData){
     int offset1 = condList[i].offset1;
     // If we are comparing this to a value
     if(! condList[i].isValue){
+      cout<<"is value"<<"\n";
       // If it's not a string, or string of equal length, just compare
       if(condList[i].type != STRING || condList[i].length == condList[i].length2){
         int offset2 = condList[i].offset2;

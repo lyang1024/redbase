@@ -144,45 +144,45 @@ RC interp(NODE *n)
          errval = pSmm->Print(n->u.PRINT.relname);
          break;
 
+
       case N_QUERY:            /* for Query() */
-         {
-            int       nSelAttrs = 0;
-            RelAttr  relAttrs[MAXATTRS];
-            int       nRelations = 0;
-            char      *relations[MAXATTRS];
-            int       nConditions = 0;
-            Condition conditions[MAXATTRS];
+      {
+         int       nSelAttrs = 0;
+         RelAttr  relAttrs[MAXATTRS];
+         int       nRelations = 0;
+         char      *relations[MAXATTRS];
+         int       nConditions = 0;
+         Condition conditions[MAXATTRS];
 
-            /* Make a list of RelAttrs suitable for sending to Query */
-            nSelAttrs = mk_rel_attrs(n->u.QUERY.relattrlist, MAXATTRS,
-                  relAttrs);
-            if(nSelAttrs < 0){
-               print_error((char*)"select", nSelAttrs);
-               break;
-            }
-
-            /* Make a list of relation names suitable for sending to Query */
-            nRelations = mk_relations(n->u.QUERY.rellist, MAXATTRS, relations);
-            if(nRelations < 0){
-               print_error((char*)"select", nRelations);
-               break;
-            }
-
-            /* Make a list of Conditions suitable for sending to Query */
-            nConditions = mk_conditions(n->u.QUERY.conditionlist, MAXATTRS,
-                  conditions);
-            if(nConditions < 0){
-               print_error((char*)"select", nConditions);
-               break;
-            }
-
-            /* Make the call to Select */
-            errval = pQlm->Select(nSelAttrs, relAttrs,
-                  nRelations, relations,
-                  nConditions, conditions);
+         /* Make a list of RelAttrs suitable for sending to Query */
+         nSelAttrs = mk_rel_attrs(n->u.QUERY.relattrlist, MAXATTRS,
+                                  relAttrs);
+         if(nSelAttrs < 0){
+            print_error((char*)"select", nSelAttrs);
             break;
-         }   
+         }
 
+         /* Make a list of relation names suitable for sending to Query */
+         nRelations = mk_relations(n->u.QUERY.rellist, MAXATTRS, relations);
+         if(nRelations < 0){
+            print_error((char*)"select", nRelations);
+            break;
+         }
+
+         /* Make a list of Conditions suitable for sending to Query */
+         nConditions = mk_conditions(n->u.QUERY.conditionlist, MAXATTRS,
+                                     conditions);
+         if(nConditions < 0){
+            print_error((char*)"select", nConditions);
+            break;
+         }
+
+         /* Make the call to Select */
+         errval = pQlm->Select(nSelAttrs, relAttrs,
+                               nRelations, relations,
+                               nConditions, conditions);
+         break;
+      }
       case N_INSERT:            /* for Insert() */
          {
             int nValues = 0;
@@ -716,9 +716,9 @@ static void print_op(CompOp op)
       case GE_OP:
          printf(" >=");
          break;
-	  case OVERLAP_OP:
-	     printf(" OVERLAP");
-		 break;
+	  //case OVERLAP_OP:
+	    // printf(" OVERLAP");
+		 //break;
       case NO_OP:
          printf(" NO_OP");
          break;

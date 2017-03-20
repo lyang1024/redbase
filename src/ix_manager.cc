@@ -58,7 +58,7 @@ RC IX_Manager::CreateIndex(const char *fileName, int indexNo,
 	struct IX_NodeHeader *rootheader;
 	struct IX_NodeEntry *entries;
 	if((rc = ph_header.GetData((char*&) header)) || (rc = ph_root.GetData((char *&) rootheader))){
-    RC flag;
+    RC flag = 0;
 	    if((flag = fh.MarkDirty(headerpage)) || (flag = fh.UnpinPage(headerpage)) || (flag = fh.MarkDirty(rootpage)) || (flag = fh.UnpinPage(rootpage)) || (flag = pfm.CloseFile(fh)))
 		    return flag;
 	    return rc;
@@ -83,33 +83,25 @@ RC IX_Manager::CreateIndex(const char *fileName, int indexNo,
 	//rootheader->page = -1; //no child page for now
 	rootheader->firstSlot = -1;
 	rootheader->freeSlot = 0;
+    rootheader->parentPage = -1;
+	rootheader->myindex = -1;
 	entries = (struct IX_NodeEntry *)((char *)rootheader + header->entryOffset_N);
 	int i;
 	for(i = 0; i < header->M - 1; i++){
 		entries[i].status = -1;
 		entries[i].page = -1;
 		entries[i].nextSlot = i + 1;
+		entries[i].slot = -1;
 	}
 	entries[i].nextSlot = -1;
 	//std::cout<<"all set"<<"\n";
-	RC flag;
+	RC flag = 0;
 	if((flag = fh.MarkDirty(headerpage)) || (flag = fh.UnpinPage(headerpage)) || (flag = fh.MarkDirty(rootpage)) || (flag = fh.UnpinPage(rootpage)) || (flag = pfm.CloseFile(fh)))
 		//std::cout<<"here ?"<<"\n";
 		return flag;
 	return rc;
 }
 
-/*
- * This function destroys a valid index given the file name and index number.
- */
-RC IX_Manager::DestroyIndex(const char *fileName, int indexNo)
-{
-	RC rc = 0;
-	std::string indexname = std::string(fileName) + "." + std::to_string(indexNo);
-    if((rc = pfm.DestroyFile(indexname.c_str())))
-		return rc;
-	return rc;
-}
 
 /*
  * This function, given a valid fileName and index Number, opens up the
@@ -121,11 +113,11 @@ RC IX_Manager::OpenIndex(const char *fileName, int indexNo,
     if(fileName == NULL || indexNo < 0){
 		return (IX_BADFILENAME);
 	}
-    /*
+/*
 	if(indexHandle.isOpenHandle == true){
 		return (IX_INVALIDINDEXHANDLE);
 	}
-    */
+*/
 	RC rc = 0;
 	PF_FileHandle fh;
 	std::string indexname =  std::string(fileName) + "." + std::to_string(indexNo);
@@ -141,66 +133,129 @@ RC IX_Manager::OpenIndex(const char *fileName, int indexNo,
 		return rc;
 	}
 	struct IX_IndexHeader *iheader = (struct IX_IndexHeader*) pData;
-	memcpy(&indexHandle.header, iheader, sizeof(struct IX_IndexHeader));
 
-	if((rc = fh.GetThisPage(iheader->rootPage, indexHandle.rootPH)))
-		return rc;
-	
-	if(indexHandle.header.attr_type == INT){
-		indexHandle.comparator = compare_int;
-	}
-	else if(indexHandle.header.attr_type == FLOAT){
-		indexHandle.comparator = compare_float;
-	}
-	
-	else if(indexHandle.header.attr_type == MBR){
-		indexHandle.comparator = compare_overlap;
-	}
-	
-	else{
-		indexHandle.comparator = compare_string;
-	}
-	indexHandle.pfh = fh;
-	
-	RC flag;
-	if((flag = fh.UnpinPage(firstpage)))
-		return flag;
-	if((rc != 0)){
+	rc = SetUpIH(indexHandle, fh, iheader);
+	RC rc2 = 0;
+	if((rc2 = fh.UnpinPage(firstpage)))
+		return (rc2);
+
+	if(rc != 0){
 		pfm.CloseFile(fh);
 	}
-	return rc;
+	return (rc);
 
 }
 
 /*
  * Given a valid index handle, closes the file associated with it
  */
-RC IX_Manager::CloseIndex(IX_IndexHandle &indexHandle)
-{
-	RC rc = 0;
-	PF_PageHandle ph;
-	PageNum page;
-	char *pData;
 
-	PageNum root = indexHandle.header.rootPage;
-	if((rc = indexHandle.pfh.MarkDirty(root)) || (rc = indexHandle.pfh.UnpinPage(root)))
-		return rc;
-	
-	if(indexHandle.dirtyHeader){
-		if((rc = indexHandle.pfh.GetFirstPage(ph)) || ph.GetPageNum(page))
-			return rc;
-		if((rc = ph.GetData(pData))){
-			RC flag;
-			if((flag = indexHandle.pfh.UnpinPage(page)))
-				return flag;
-			return flag;
-		}
-		memcpy(pData, &indexHandle.header, sizeof(struct IX_IndexHeader));
-		if((rc = indexHandle.pfh.MarkDirty(page)) || (rc = indexHandle.pfh.UnpinPage(page)))
-			return rc;
+RC IX_Manager::CleanUpIH(IX_IndexHandle &indexHandle){
+	if(indexHandle.isOpenHandle == false)
+		return (IX_INVALIDINDEXHANDLE);
+	indexHandle.isOpenHandle = false;
+	return (0);
+}
+
+
+RC IX_Manager::DestroyIndex(const char *fileName, int indexNo){
+    RC rc;
+    if(fileName == NULL || indexNo < 0)
+        return (IX_BADFILENAME);
+    std::string indexname = std::string(fileName) + "." + std::to_string(indexNo);
+
+    if((rc = pfm.DestroyFile(indexname.c_str())))
+        return (rc);
+    return (0);
+}
+
+/*
+ * This function sets up the private variables of an IX_IndexHandle to get it
+ * ready to refer to an open file
+ */
+RC IX_Manager::SetUpIH(IX_IndexHandle &ih, PF_FileHandle &fh, struct IX_IndexHeader *header){
+    RC rc = 0;
+    memcpy(&ih.header, header, sizeof(struct IX_IndexHeader));
+
+    // check that this is a valid index file
+    /*
+    if(! IsValidIndex(ih.header.attr_type, ih.header.attr_length))
+        return (IX_INVALIDINDEXFILE);
+
+    if(! ih.isValidIndexHeader()){ // check that the header is valid
+        return (rc);
+    }
+     */
+
+    if((rc = fh.GetThisPage(header->rootPage, ih.rootPH))){ // retrieve the root page
+        return (rc);
+    }
+
+
+	if(ih.header.attr_type == INT){
+		ih.comparator = compare_int;
+	}
+	else if(ih.header.attr_type == FLOAT){
+		ih.comparator = compare_float;
 	}
 
-	if((rc = pfm.CloseFile(indexHandle.pfh)))
-		return rc;
-	return rc;
+	else if(ih.header.attr_type == MBR){
+		ih.comparator = compare_overlap;
+	}
+
+	else{
+		ih.comparator = compare_string;
+	}
+    ih.header_modified = false;
+    ih.pfh = fh;
+    ih.isOpenHandle = true;
+    return (rc);
+}
+
+
+
+
+/*
+ * Given a valid index handle, closes the file associated with it
+ */
+RC IX_Manager::CloseIndex(IX_IndexHandle &indexHandle){
+    RC rc = 0;
+    PF_PageHandle ph;
+    PageNum page;
+    char *pData;
+
+    if(indexHandle.isOpenHandle == false){ // checks that it's a valid index handle
+        return (IX_INVALIDINDEXHANDLE);
+    }
+
+    // rewrite the root page and unpin it
+    PageNum root = indexHandle.header.rootPage;
+    if((rc = indexHandle.pfh.MarkDirty(root)) || (rc = indexHandle.pfh.UnpinPage(root)))
+        return (rc);
+
+    // Check that the header is modified. If so, write that too.
+    //if(indexHandle.header_modified == true){
+	if(true){
+        if((rc = indexHandle.pfh.GetFirstPage(ph)) || ph.GetPageNum(page))
+            return (rc);
+        if((rc = ph.GetData(pData))){
+            RC rc2;
+            if((rc2 = indexHandle.pfh.UnpinPage(page)))
+                return (rc2);
+            return (rc);
+        }
+        memcpy(pData, &indexHandle.header, sizeof(struct IX_IndexHeader));
+        if((rc = indexHandle.pfh.MarkDirty(page)) || (rc = indexHandle.pfh.UnpinPage(page)))
+            return (rc);
+    }
+
+    // Close the file
+    if((rc = pfm.CloseFile(indexHandle.pfh)));
+        //return (rc);
+
+    if((rc = CleanUpIH(indexHandle)));
+        //return (rc);
+
+	rc = 0;
+    return (rc);
 }
