@@ -21,6 +21,44 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="20069e1a-4cc1-415e-ba09-8bb59283cc89" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/customtype.dir/src/mbr.cc.o" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/ix.dir/src/ix_error.cc.o" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/ix.dir/src/ix_indexhandle.cc.o" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/ix.dir/src/ix_indexscan.cc.o" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/ix.dir/src/ix_manager.cc.o" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/ix.dir/src/mbr.cc.o" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/parser.dir/parse.cpp.o" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/parser.dir/scan.cpp.o" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/parser.dir/src/interp.cc.o" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/parser.dir/src/nodes.cc.o" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/pf.dir/src/pf_buffermgr.cc.o" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/pf.dir/src/pf_error.cc.o" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/pf.dir/src/pf_filehandle.cc.o" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/pf.dir/src/pf_hashtable.cc.o" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/pf.dir/src/pf_manager.cc.o" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/pf.dir/src/pf_pagehandle.cc.o" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/pf.dir/src/pf_statistics.cc.o" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/pf.dir/src/statistics.cc.o" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/ql.dir/src/mbr.cc.o" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/ql.dir/src/ql_error.cc.o" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/ql.dir/src/ql_manager.cc.o" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/ql.dir/src/ql_node.cc.o" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/ql.dir/src/ql_nodejoin.cc.o" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/ql.dir/src/ql_nodeproj.cc.o" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/ql.dir/src/ql_noderel.cc.o" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/ql.dir/src/ql_nodesel.cc.o" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/ql.dir/src/qo_manager.cc.o" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/redbase.dir/src/redbase.cc.o" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/rm.dir/src/rm_error.cc.o" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/rm.dir/src/rm_filehandle.cc.o" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/rm.dir/src/rm_filescan.cc.o" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/rm.dir/src/rm_manager.cc.o" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/rm.dir/src/rm_record.cc.o" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/rm.dir/src/rm_rid.cc.o" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/sm.dir/src/printer.cc.o" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/sm.dir/src/sm_attriterator.cc.o" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/sm.dir/src/sm_error.cc.o" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/sm.dir/src/sm_manager.cc.o" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/db2/attrcat" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/db2/e" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/db2/q1" afterPath="" />
@@ -51,38 +89,22 @@
       <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/db2/w.0" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/db2/y1" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/db2/y1.0" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/libcustomtype.a" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/libix.a" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/libparser.a" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/libpf.a" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/libql.a" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/librm.a" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/libsm.a" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/parse.cpp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/parse.hpp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/redbase" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/scan.cpp" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/src/.ix_indexhandle.cc.swp" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/src/.scanhelp.c.swp" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/ix.dir/src/ix_indexhandle.cc.o" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/ix.dir/src/ix_indexhandle.cc.o" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/ix.dir/src/ix_indexscan.cc.o" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/ix.dir/src/ix_indexscan.cc.o" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/ix.dir/src/ix_manager.cc.o" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/ix.dir/src/ix_manager.cc.o" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/parser.dir/parse.cpp.o" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/parser.dir/parse.cpp.o" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/parser.dir/src/interp.cc.o" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/parser.dir/src/interp.cc.o" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/ql.dir/src/ql_manager.cc.o" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/ql.dir/src/ql_manager.cc.o" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/ql.dir/src/ql_node.cc.o" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/ql.dir/src/ql_node.cc.o" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/ql.dir/src/ql_nodejoin.cc.o" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/ql.dir/src/ql_nodejoin.cc.o" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/ql.dir/src/ql_nodeproj.cc.o" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/ql.dir/src/ql_nodeproj.cc.o" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/ql.dir/src/ql_noderel.cc.o" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/ql.dir/src/ql_noderel.cc.o" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/ql.dir/src/ql_nodesel.cc.o" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/ql.dir/src/ql_nodesel.cc.o" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/ql.dir/src/qo_manager.cc.o" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/ql.dir/src/qo_manager.cc.o" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/redbase.dir/src/redbase.cc.o" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/redbase.dir/src/redbase.cc.o" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/sm.dir/src/sm_manager.cc.o" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/sm.dir/src/sm_manager.cc.o" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/libcustomtype.a" afterPath="$PROJECT_DIR$/cmake-build-debug/libcustomtype.a" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/libix.a" afterPath="$PROJECT_DIR$/cmake-build-debug/libix.a" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/libparser.a" afterPath="$PROJECT_DIR$/cmake-build-debug/libparser.a" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/libpf.a" afterPath="$PROJECT_DIR$/cmake-build-debug/libpf.a" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/libql.a" afterPath="$PROJECT_DIR$/cmake-build-debug/libql.a" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/librm.a" afterPath="$PROJECT_DIR$/cmake-build-debug/librm.a" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/libsm.a" afterPath="$PROJECT_DIR$/cmake-build-debug/libsm.a" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/redbase" afterPath="$PROJECT_DIR$/cmake-build-debug/redbase" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/include/.ix_internal.h.swp" afterPath="$PROJECT_DIR$/include/.ix_internal.h.swp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Untitled Document" afterPath="$PROJECT_DIR$/Untitled Document" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/include/ix.h" afterPath="$PROJECT_DIR$/include/ix.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/interp.cc" afterPath="$PROJECT_DIR$/src/interp.cc" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ix_indexhandle.cc" afterPath="$PROJECT_DIR$/src/ix_indexhandle.cc" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ix_manager.cc" afterPath="$PROJECT_DIR$/src/ix_manager.cc" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ql_node.cc" afterPath="$PROJECT_DIR$/src/ql_node.cc" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -108,24 +130,12 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ql_manager.cc" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ql_manager.cc">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="580">
-              <caret line="468" column="6" lean-forward="false" selection-start-line="468" selection-start-column="6" selection-end-line="468" selection-end-column="6" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="ix.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/include/ix.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="267">
-              <caret line="42" column="14" lean-forward="false" selection-start-line="42" selection-start-column="14" selection-end-line="42" selection-end-column="14" />
-              <folding>
-                <marker date="1489995568009" expanded="true" signature="557:2543" ph="{...}" />
-              </folding>
+            <state relative-caret-position="237">
+              <caret line="55" column="4" lean-forward="false" selection-start-line="55" selection-start-column="4" selection-end-line="55" selection-end-column="4" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -140,57 +150,67 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="rm_manager.cc" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/rm_manager.cc">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="205">
-              <caret line="87" column="0" lean-forward="false" selection-start-line="87" selection-start-column="0" selection-end-line="87" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="pf_filehandle.cc" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/pf_filehandle.cc">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="124">
-              <caret line="426" column="28" lean-forward="false" selection-start-line="426" selection-start-column="28" selection-end-line="426" selection-end-column="28" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="sm_manager.cc" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/sm_manager.cc">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="101">
-              <caret line="552" column="0" lean-forward="false" selection-start-line="552" selection-start-column="0" selection-end-line="552" selection-end-column="0" />
+            <state relative-caret-position="416">
+              <caret line="585" column="13" lean-forward="false" selection-start-line="585" selection-start-column="13" selection-end-line="585" selection-end-column="13" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ix_indexhandle.cc" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ix_indexhandle.cc" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/ix_indexhandle.cc">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="146">
-              <caret line="134" column="0" lean-forward="false" selection-start-line="134" selection-start-column="0" selection-end-line="134" selection-end-column="0" />
+            <state relative-caret-position="225">
+              <caret line="330" column="84" lean-forward="false" selection-start-line="330" selection-start-column="84" selection-end-line="330" selection-end-column="84" />
               <folding>
                 <element signature="e#144#163#0" expanded="true" />
-                <marker date="1489994254933" expanded="true" signature="4294:4525" ph="/.../" />
-                <marker date="1489994254933" expanded="true" signature="4664:7588" ph="/.../" />
-                <marker date="1489994254933" expanded="true" signature="7593:11183" ph="/.../" />
-                <marker date="1489994254933" expanded="true" signature="11188:12289" ph="/.../" />
+                <marker date="1490030853995" expanded="true" signature="4294:5244" ph="/.../" />
+                <marker date="1490030853995" expanded="true" signature="11440:14363" ph="/.../" />
+                <marker date="1490030853995" expanded="true" signature="14363:17921" ph="/.../" />
+                <marker date="1490030853995" expanded="true" signature="17921:19019" ph="/.../" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="redbase.cc" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ix_indexscan.cc" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ix_indexscan.cc">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="90">
+              <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="rm_rid.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/include/rm_rid.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="210">
+              <caret line="35" column="38" lean-forward="false" selection-start-line="35" selection-start-column="38" selection-end-line="35" selection-end-column="38" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="rm_rid.cc" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/rm_rid.cc">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="45">
+              <caret line="13" column="43" lean-forward="false" selection-start-line="13" selection-start-column="43" selection-end-line="13" selection-end-column="43" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="redbase.cc" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/redbase.cc">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="262">
-              <caret line="49" column="0" lean-forward="false" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
+            <state relative-caret-position="540">
+              <caret line="43" column="35" lean-forward="false" selection-start-line="43" selection-start-column="35" selection-end-line="43" selection-end-column="35" />
               <folding />
             </state>
           </provider>
@@ -225,9 +245,9 @@
         <option value="$PROJECT_DIR$/src/parse.y" />
         <option value="$PROJECT_DIR$/src/ql_node.cc" />
         <option value="$PROJECT_DIR$/src/interp.cc" />
-        <option value="$PROJECT_DIR$/src/ix_indexhandle.cc" />
-        <option value="$PROJECT_DIR$/include/ix.h" />
         <option value="$PROJECT_DIR$/src/ix_manager.cc" />
+        <option value="$PROJECT_DIR$/include/ix.h" />
+        <option value="$PROJECT_DIR$/src/ix_indexhandle.cc" />
       </list>
     </option>
   </component>
@@ -554,20 +574,20 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1489949672819</updated>
-      <workItem from="1489949675481" duration="40313000" />
+      <workItem from="1489949675481" duration="56603000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="40313000" />
+    <option name="totallyTimeSpent" value="56603000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1920" y="24" width="1366" height="744" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15959005" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19730942" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24813154" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
@@ -575,7 +595,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3168909" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3168909" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -596,7 +616,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/src/ix_indexhandle.cc</url>
-          <line>451</line>
+          <line>609</line>
           <option name="timeStamp" value="16" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
@@ -606,17 +626,17 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/src/ix_indexhandle.cc</url>
-          <line>439</line>
+          <line>597</line>
           <option name="timeStamp" value="19" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/src/ix_indexhandle.cc</url>
-          <line>437</line>
+          <line>595</line>
           <option name="timeStamp" value="23" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/src/ix_indexhandle.cc</url>
-          <line>447</line>
+          <line>605</line>
           <option name="timeStamp" value="24" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
@@ -631,7 +651,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/src/ix_indexhandle.cc</url>
-          <line>427</line>
+          <line>585</line>
           <option name="timeStamp" value="30" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
@@ -640,49 +660,9 @@
           <option name="timeStamp" value="31" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/src/ix_indexhandle.cc</url>
-          <line>39</line>
-          <option name="timeStamp" value="33" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/src/ix_indexhandle.cc</url>
-          <line>43</line>
-          <option name="timeStamp" value="34" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/src/ix_indexhandle.cc</url>
-          <line>47</line>
-          <option name="timeStamp" value="35" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/src/sm_manager.cc</url>
           <line>533</line>
           <option name="timeStamp" value="36" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/src/ix_indexhandle.cc</url>
-          <line>61</line>
-          <option name="timeStamp" value="37" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/src/ix_indexhandle.cc</url>
-          <line>90</line>
-          <option name="timeStamp" value="38" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/src/ix_indexhandle.cc</url>
-          <line>112</line>
-          <option name="timeStamp" value="40" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/src/ix_indexhandle.cc</url>
-          <line>125</line>
-          <option name="timeStamp" value="41" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/src/ix_indexhandle.cc</url>
-          <line>113</line>
-          <option name="timeStamp" value="43" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/src/sm_manager.cc</url>
@@ -759,14 +739,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="705">
           <caret line="213" column="25" lean-forward="false" selection-start-line="213" selection-start-column="25" selection-end-line="213" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ix_indexscan.cc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -967,16 +939,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/include/ix.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="267">
-          <caret line="42" column="14" lean-forward="false" selection-start-line="42" selection-start-column="14" selection-end-line="42" selection-end-column="14" />
-          <folding>
-            <marker date="1489995568009" expanded="true" signature="557:2543" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/cmake-build-debug/parse.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -1017,32 +979,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ix_indexhandle.cc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="146">
-          <caret line="134" column="0" lean-forward="false" selection-start-line="134" selection-start-column="0" selection-end-line="134" selection-end-column="0" />
-          <folding>
-            <element signature="e#144#163#0" expanded="true" />
-            <marker date="1489994254933" expanded="true" signature="4294:4525" ph="/.../" />
-            <marker date="1489994254933" expanded="true" signature="4664:7588" ph="/.../" />
-            <marker date="1489994254933" expanded="true" signature="7593:11183" ph="/.../" />
-            <marker date="1489994254933" expanded="true" signature="11188:12289" ph="/.../" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/ix_manager.cc">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="196">
           <caret line="260" column="0" lean-forward="false" selection-start-line="260" selection-start-column="0" selection-end-line="260" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sm_manager.cc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="101">
-          <caret line="552" column="0" lean-forward="false" selection-start-line="552" selection-start-column="0" selection-end-line="552" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1057,9 +997,63 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/redbase.cc">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="262">
-          <caret line="49" column="0" lean-forward="false" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
+        <state relative-caret-position="540">
+          <caret line="43" column="35" lean-forward="false" selection-start-line="43" selection-start-column="35" selection-end-line="43" selection-end-column="35" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sm_manager.cc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="416">
+          <caret line="585" column="13" lean-forward="false" selection-start-line="585" selection-start-column="13" selection-end-line="585" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/rm_rid.cc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="13" column="43" lean-forward="false" selection-start-line="13" selection-start-column="43" selection-end-line="13" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/include/rm_rid.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="35" column="38" lean-forward="false" selection-start-line="35" selection-start-column="38" selection-end-line="35" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/include/ix.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="237">
+          <caret line="55" column="4" lean-forward="false" selection-start-line="55" selection-start-column="4" selection-end-line="55" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ix_indexscan.cc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ix_indexhandle.cc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="330" column="84" lean-forward="false" selection-start-line="330" selection-start-column="84" selection-end-line="330" selection-end-column="84" />
+          <folding>
+            <element signature="e#144#163#0" expanded="true" />
+            <marker date="1490030853995" expanded="true" signature="4294:5244" ph="/.../" />
+            <marker date="1490030853995" expanded="true" signature="11440:14363" ph="/.../" />
+            <marker date="1490030853995" expanded="true" signature="14363:17921" ph="/.../" />
+            <marker date="1490030853995" expanded="true" signature="17921:19019" ph="/.../" />
+          </folding>
         </state>
       </provider>
     </entry>

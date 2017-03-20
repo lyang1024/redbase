@@ -63,6 +63,7 @@ private:
 	
 	//some helper methods
 	RC ChooseLeaf(PageNum rPN, void *pData, PageNum &result);
+	RC ChooseNode(struct IX_NodeEntry &nEntry, int depth, int height, PageNum &result);
     RC CreateNode(PF_PageHandle &ph, PageNum &page, char *nData, bool isLeaf, PageNum parent, int myindex);
 	RC InsertToBucket(PageNum bucketPage, const RID &rid);
 	RC CreateBucket(PageNum &page);
@@ -78,14 +79,13 @@ private:
     void getMBR(struct IX_NodeEntry *entries, int numEntries, struct MBR &resultmbr);
     RC AdjustTree(struct IX_NodeHeader *chosenleaf, struct MBR mbr);
     RC AdjustTree(PageNum pn1, PageNum pn2);
-
-    /*
-    RC DeleteFromNode(PageNum nodePage, void* pData, const RID &rid, bool &toDelete);
+	RC DeleteFromBucket(struct IX_BucketHeader *bHeader, const RID &rid, bool &deletePage, RID &lastRID, PageNum &nextPage);
+    RC DeleteFromNode(PageNum nodePage, void* pData, const RID &rid);
     RC FindLeaf(PageNum rootPage, void *pData, const RID &rid, PageNum &result);
-     */
+	RC CondenseTree(PageNum LeafPN);
     bool IsEqualMBR(struct MBR m1, struct MBR m2);
     bool Overlap(struct MBR rt1, struct MBR rt2);
-	RC DeleteFromBucket(struct IX_BucketHeader *bHeader, const RID &rid, bool &deletePage, RID &lastRID, PageNum &nextPage);
+
 };
 
 //
