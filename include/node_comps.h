@@ -69,7 +69,9 @@ bool noverlap(void * value1, void * value2, AttrType attrtype, int attrLength){
   if(attrtype == MBR){
     struct MBR m1 = *(struct MBR*)value1;
 	struct MBR m2 = *(struct MBR*)value2;
-	return !((m1.x1 > m2.x2 || m2.x1 > m1.x2) || (m1.y2 > m2.y1 || m2.y2 > m1.y1));
+    if (m1.x1 > m2.x2 || m2.x1 > m1.x2) return 0;
+    if (m1.y2 < m2.y1 || m2.y2 < m1.y1) return 0;
+    return 1;
   }
   else{
     printf("wrong type!\n");

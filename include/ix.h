@@ -14,6 +14,7 @@
 #include <cstdlib>
 #include <cstring>
 #include <vector>
+#include <stack>
 #include "mbr.h"
 
 struct IX_IndexHeader{
@@ -110,7 +111,69 @@ public:
     // Close index scan
     RC CloseScan();
 private:
-	bool isOpen;
+	//bool isOpen;
+    RC BeginScan(PF_PageHandle &leafPH, PageNum &pageNum);
+    // Sets up the scan private variables to the first entry within the given leaf
+    RC GetFirstEntryInLeaf(PF_PageHandle &leafPH);
+    // Sets up the scan private variables to the appropriate entry within the given leaf
+    RC GetAppropriateEntryInLeaf(PF_PageHandle &leafPH);
+    // Sets up the scan private variables to the first entry within this bucket
+    RC GetFirstBucketEntry(PageNum nextBucket, PF_PageHandle &bucketPH);
+    // Sets up the scan private variables to the next entry in the index
+    RC FindNextValue();
+	RC FindNextEntry(struct IX_NodeHeader *nh, int current, int &result);
+    // Sets the RID
+    RC SetRID(bool setCurrent);
+	RC FindFirstLeaf();
+
+
+    bool openScan;              // Indicator for whether the scan is being used
+    IX_IndexHandle *indexHandle;// Pointer to the indexHandle that modifies the
+    // file that the scan will try to traverse
+
+    // The comparison to determine whether a record satisfies given scan conditions
+    bool (*comparator) (void *, void*, AttrType, int);
+    int attrLength;     // Comparison type, and information about the value
+    void *value;        // to compare to
+    AttrType attrType;
+    CompOp compOp;
+
+    bool scanEnded;     // Indicators for whether the scan has started or
+    bool scanStarted;   // ended
+
+    //PF_PageHandle currLeafPH;   // Currently pinned Leaf and Bucket PageHandles
+    //PF_PageHandle currBucketPH; // that the scan is accessing
+
+    char *currKey;              // the keys of the current record, and the following
+    char *nextKey;              // two records after that
+    char *nextNextKey;
+    struct IX_NodeHeader_L *leafHeader;     // the scan's current leaf and bucket header
+    struct IX_BucketHeader *bucketHeader;   // and entry and key pointers
+    struct Node_Entry *leafEntries;
+    struct Bucket_Entry *bucketEntries;
+    char * leafKeys;
+    int leafSlot;               // the current leaf and bucket slots of the scan
+    int bucketSlot;
+    PageNum currLeafNum;        // the current and next bucket slots of the scan
+    PageNum currBucketNum;
+    PageNum nextBucketNum;
+
+    RID currRID;    // the current RID and the next RID in the scan
+    RID nextRID;
+
+    bool hasBucketPinned; // whether the scan has pinned a bucket or a leaf page
+    bool hasLeafPinned;
+    bool initializedValue; // Whether value variable has been initialized (malloced)
+    bool endOfIndexReached; // Whether the end of the scan has been reached
+
+
+    bool foundFirstValue;
+    bool foundLastValue;
+    bool useFirstLeaf;
+
+	//std::stack<IX_NodeHeader*> path;
+	std::stack<PageNum> path;
+	std::vector<int> indices;
 };
 
 //

@@ -41,6 +41,8 @@ cstring
 -
 vector
 -
+stack
+-
 mbr.h
 ../include/mbr.h
 
@@ -111,6 +113,8 @@ pf.h
 /home/lyang/Projects/redbase/src/pf.h
 ix.h
 /home/lyang/Projects/redbase/src/ix.h
+iostream
+-
 ix_internal.h
 /home/lyang/Projects/redbase/src/ix_internal.h
 cstdio

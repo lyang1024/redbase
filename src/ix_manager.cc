@@ -99,6 +99,7 @@ RC IX_Manager::CreateIndex(const char *fileName, int indexNo,
 	if((flag = fh.MarkDirty(headerpage)) || (flag = fh.UnpinPage(headerpage)) || (flag = fh.MarkDirty(rootpage)) || (flag = fh.UnpinPage(rootpage)) || (flag = pfm.CloseFile(fh)))
 		//std::cout<<"here ?"<<"\n";
 		return flag;
+	std::cout<<"index created"<<"\n";
 	return rc;
 }
 

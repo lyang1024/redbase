@@ -65,8 +65,8 @@ RC IX_IndexHandle::InsertEntry(void *pData, const RID &rid)
 			bucketPage = dupEntry.page;
 			if((rc = InsertToBucket(bucketPage, rid)))
 				return rc;
-            if((rc = pfh.MarkDirty(bucketPage)) || (rc = pfh.UnpinPage(bucketPage)))
-                return (rc);
+            if((rc = pfh.MarkDirty(bucketPage)) || (rc = pfh.UnpinPage(bucketPage)));
+                //return (rc);
 		}
 		else {
 			//create a bucket
@@ -74,11 +74,11 @@ RC IX_IndexHandle::InsertEntry(void *pData, const RID &rid)
 				return rc;
 			entries[index].status = 1;
 			RID newrid(entries[index].page, entries[index].slot);
-			if((rc = InsertToBucket(bucketPage, newrid)) || (rc = InsertToBucket(bucketPage, rid)))
-				return rc;
+			if((rc = InsertToBucket(bucketPage, newrid)) || (rc = InsertToBucket(bucketPage, rid)));
+				//return rc;
 			entries[index].page = bucketPage;
-            if((rc = pfh.MarkDirty(bucketPage)) || (rc = pfh.UnpinPage(bucketPage)))
-                return (rc);
+            if((rc = pfh.MarkDirty(bucketPage)) || (rc = pfh.UnpinPage(bucketPage)));
+                //return (rc);
             //if((rc = pfh.MarkDirty(leafPN)) || (rc = pfh.UnpinPage(leafPN)))
             //    return (rc);
 		}
@@ -98,8 +98,8 @@ RC IX_IndexHandle::InsertEntry(void *pData, const RID &rid)
             PageNum newPageNum;
             SplitNode(chosenleaf,newHeader,newentry,newPageNum);
             AdjustTree(leafPN, newPageNum);
-            if((rc = pfh.MarkDirty(newPageNum)) || (rc = pfh.UnpinPage(newPageNum)))
-                return (rc);
+            if((rc = pfh.MarkDirty(newPageNum)) || (rc = pfh.UnpinPage(newPageNum)));
+                //return (rc);
             //if((rc = pfh.MarkDirty(leafPN)) || (rc = pfh.UnpinPage(leafPN)))
             //    return (rc);
 			//PageNum parentp = choosenleaf->parentPage;
@@ -126,10 +126,10 @@ RC IX_IndexHandle::InsertEntry(void *pData, const RID &rid)
             AdjustTree(chosenleaf,entries[newindex].mbr);
         }
     }
-    if((rc = pfh.MarkDirty(leafPN)) || (rc = pfh.UnpinPage(leafPN)))
-        return (rc);
-    if((rc = pfh.MarkDirty(header.rootPage)))
-        return (rc);
+    if((rc = pfh.MarkDirty(leafPN)) || (rc = pfh.UnpinPage(leafPN)));
+        //return (rc);
+    if((rc = pfh.MarkDirty(header.rootPage)) || (rc = pfh.UnpinPage(header.rootPage)));
+        //return (rc);
     return rc;
 		
 }
@@ -153,13 +153,13 @@ RC IX_IndexHandle::DeleteEntry(void *pData, const RID &rid)
     if(rootNH->num_entries == 1){
         struct IX_NodeEntry *entries = (struct IX_NodeEntry*)((char*&)rootNH + header.entryOffset_N);
         header.rootPage = entries[rootNH->firstSlot].page;
-        if((rc = pfh.DisposePage(rootP)))
-            return (rc);
+        if((rc = pfh.DisposePage(rootP)));
+            //return (rc);
     }
-    if((rc = pfh.MarkDirty(leafP)) || (rc = pfh.UnpinPage(leafP)))
-        return (rc);
-    if((rc = pfh.MarkDirty(rootP)) || (rc = pfh.UnpinPage(rootP)))
-        return (rc);
+    if((rc = pfh.MarkDirty(leafP)) || (rc = pfh.UnpinPage(leafP)));
+        //return (rc);
+    if((rc = pfh.MarkDirty(rootP)) || (rc = pfh.UnpinPage(rootP)));
+        //return (rc);
     return rc;
 }
 
@@ -185,6 +185,8 @@ RC IX_IndexHandle::CondenseTree(PageNum LeafPN){
         return rc;
     while(LeafPN != header.rootPage){
         PageNum parentPN = LeafNH->parentPage;
+        if((rc = pfh.GetThisPage(LeafPN, LeafPH)) || (rc = LeafPH.GetData((char*&)LeafNH)))
+            return rc;
         PF_PageHandle parentPH;
         struct IX_NodeHeader *parentNH;
         if((rc = pfh.GetThisPage(parentPN, parentPH)) || (rc = LeafPH.GetData((char*&)parentNH)))
@@ -213,11 +215,15 @@ RC IX_IndexHandle::CondenseTree(PageNum LeafPN){
         if((rc = pfh.MarkDirty(LeafPN)) || (rc = pfh.UnpinPage(LeafPN)))
             return (rc);
         LeafPN = parentPN;
+        /*
         if((rc = pfh.MarkDirty(parentPN)) || (rc = pfh.UnpinPage(parentPN)))
             return (rc);
+            */
         level++;
         height++;
     }
+    if((rc = pfh.MarkDirty(LeafPN)) || (rc = pfh.UnpinPage(LeafPN)))
+        return (rc);
     for(int j = 0; j < Qs.size(); j++){
         PageNum nPN = Qs[j];
         PF_PageHandle nPH;
@@ -237,8 +243,8 @@ RC IX_IndexHandle::CondenseTree(PageNum LeafPN){
                 struct IX_NodeEntry nentry = nentries[i];
                 void* pData = (void *)&nentry.mbr;
                 RID temprid(nentry.page,nentry.slot);
-                if(rc = InsertEntry(pData,temprid))
-                    return rc;
+                if(rc = InsertEntry(pData,temprid));
+                    //return rc;
             }
 
 
@@ -605,6 +611,8 @@ RC IX_IndexHandle::ChooseLeaf(PageNum rPN, void *pData, PageNum &result){
 			}
 			index++;
 		}
+        if((rc = pfh.MarkDirty(nextPageNum)) || (rc = pfh.UnpinPage(nextPageNum)))
+            return (rc);
 		nextPageNum = entries[bestindex].page;
 		PF_PageHandle nextPH;
 		if((rc = pfh.GetThisPage(nextPageNum, nextPH)) || (rc = nextPH.GetData((char *&)current_h)))
@@ -656,6 +664,8 @@ RC IX_IndexHandle::ChooseNode(struct IX_NodeEntry &nEntry, int depth, int height
             }
             index++;
         }
+        if((rc = pfh.MarkDirty(nextPageNum)) || (rc = pfh.UnpinPage(nextPageNum)))
+            return (rc);
         nextPageNum = entries[bestindex].page;
         PF_PageHandle nextPH;
         if((rc = pfh.GetThisPage(nextPageNum, nextPH)) || (rc = nextPH.GetData((char *&)current_h)))
