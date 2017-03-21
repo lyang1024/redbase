@@ -47,6 +47,10 @@ RC IX_IndexHandle::InsertEntry(void *pData, const RID &rid)
 	struct IX_NodeEntry *entries = (struct IX_NodeEntry*)((char*)chosenleaf + header.entryOffset_N);
 	int index = chosenleaf->firstSlot;
 	while(index != -1){
+        if(entries[index].status < 0){
+            index = entries[index].nextSlot;
+            continue;
+        }
 		char *value = (char*)&entries[index].mbr;
 		float tempExpansion = getExpansion((void*)value, pData);
 		if(tempExpansion == 0){
@@ -95,6 +99,8 @@ RC IX_IndexHandle::InsertEntry(void *pData, const RID &rid)
                 return rc;
             }
             newentry.mbr = *(struct MBR*)pData;
+            rid.GetSlotNum(newentry.slot);
+            rid.GetPageNum(newentry.page);
             PageNum newPageNum;
             SplitNode(chosenleaf,newHeader,newentry,newPageNum);
             AdjustTree(leafPN, newPageNum);
@@ -117,11 +123,19 @@ RC IX_IndexHandle::InsertEntry(void *pData, const RID &rid)
             chosenleaf->num_entries++;
             chosenleaf->freeSlot = entries[newindex].nextSlot;
             int previndex;
-            FindPrevIndex(chosenleaf, newindex, previndex);
+            FindPrevIndex(chosenleaf, -1, previndex);
             if(previndex < 0){
                 chosenleaf->firstSlot = newindex;
             }
+            else{
+                entries[previndex].nextSlot = newindex;
+            }
             entries[newindex].mbr = *(struct MBR *)pData;
+            entries[newindex].nextSlot = -1;
+            //entries[newindex].status = 0;
+            rid.GetPageNum(entries[newindex].page);
+            rid.GetSlotNum(entries[newindex].slot);
+
             //need adjust tree to update parent mbr
             AdjustTree(chosenleaf,entries[newindex].mbr);
         }
@@ -194,7 +208,7 @@ RC IX_IndexHandle::CondenseTree(PageNum LeafPN){
         struct IX_NodeEntry *entries = (struct IX_NodeEntry*)((char*&)parentNH + header.entryOffset_N);
         if(LeafNH->num_entries < header.m){
             int previndex;
-            struct IX_NodeEntry nEntry = entries[LeafNH->myindex];
+            //struct IX_NodeEntry nEntry = entries[LeafNH->myindex];
             FindPrevIndex(parentNH, LeafNH->myindex, previndex);
             entries[previndex].nextSlot = entries[LeafNH->myindex].nextSlot;
             entries[LeafNH->myindex].status = -1;
@@ -209,7 +223,7 @@ RC IX_IndexHandle::CondenseTree(PageNum LeafPN){
             }
         }
         else{
-            struct IX_NodeEntry *Leafentries = (struct IX_NodeEntry*)((char*&)parentNH + header.entryOffset_N);
+            struct IX_NodeEntry *Leafentries = (struct IX_NodeEntry*)((char*&)LeafNH + header.entryOffset_N);
             getMBR(Leafentries, LeafNH->num_entries, entries[LeafNH->myindex].mbr);
         }
         if((rc = pfh.MarkDirty(LeafPN)) || (rc = pfh.UnpinPage(LeafPN)))
@@ -240,17 +254,23 @@ RC IX_IndexHandle::CondenseTree(PageNum LeafPN){
             */
 
             for(int i = 0; i < nNH->num_entries; i++){
-                struct IX_NodeEntry nentry = nentries[i];
-                void* pData = (void *)&nentry.mbr;
-                RID temprid(nentry.page,nentry.slot);
-                if(rc = InsertEntry(pData,temprid));
+                if(nentries[i].status >= 0) {
+
+                    struct IX_NodeEntry nentry = nentries[i];
+                    void *pData = (void *) &nentry.mbr;
+                    RID temprid(nentry.page, nentry.slot);
+                    if (rc = InsertEntry(pData, temprid));
                     //return rc;
+                }
             }
 
 
         }
         else{
             for(int i = 0; i < nNH->num_entries; i++) {
+                if(nentries[i].status < 0){
+                    continue;
+                }
                 struct IX_NodeEntry nentry = nentries[i];
 
                 PageNum result;
@@ -301,9 +321,12 @@ RC IX_IndexHandle::CondenseTree(PageNum LeafPN){
                     resultNH->num_entries++;
                     resultNH->freeSlot = resultEntries[newindex].nextSlot;
                     int previndex;
-                    FindPrevIndex(resultNH, newindex, previndex);
+                    FindPrevIndex(resultNH, -1, previndex);
                     if (previndex < 0) {
                         resultNH->firstSlot = newindex;
+                    }
+                    else{
+                        resultEntries[previndex].nextSlot = newindex;
                     }
                     resultEntries[newindex].mbr = nentry.mbr;
                     //need adjust tree to update parent mbr
@@ -337,20 +360,24 @@ RC IX_IndexHandle::DeleteFromNode(PageNum nodePage, void* pData, const RID &rid)
     struct IX_NodeEntry *entries = (struct IX_NodeEntry*)((char*&)nodeNH + header.entryOffset_N);
     int i;
     for(i = 0; i < nodeNH->num_entries; i++){
-        if(IsEqualMBR(tempmbr,entries[i].mbr) && entries[i].page == recordPN){
+        if(entries[i].status >= 0 && IsEqualMBR(tempmbr,entries[i].mbr) && entries[i].page == recordPN){
             break;
         }
     }
-    if(i == nodeNH->num_entries) return 1;
+    if(i == nodeNH->num_entries){
+        std::cout<<"Not found"<<"\n";
+        return rc;
+    }
     int prevIndex;
     if(i == nodeNH->firstSlot){
         prevIndex = i;
     }
     else {
-        prevIndex = i - 1;
+        FindPrevIndex(nodeNH,i,prevIndex);
     }
     if(entries[i].status == 0){
         if(recordPN != entries[i].page || recordSN != entries[i].slot){
+            std::cout<<"record not match"<<"\n";
             return IX_INVALIDENTRY;
         }
         if(i == nodeNH->firstSlot){
@@ -375,6 +402,7 @@ RC IX_IndexHandle::DeleteFromNode(PageNum nodePage, void* pData, const RID &rid)
         if((rc = pfh.GetThisPage(bucketNum, bucketPH)) || (rc = bucketPH.GetData((char *&)bHeader))){
             return (rc);
         }
+        rc = DeleteFromBucket(bHeader, rid, deletePage, lastRID, nextBucketNum);
         RC rc2 = 0;
         if((rc2 = pfh.MarkDirty(bucketNum)) || (rc = pfh.UnpinPage(bucketNum)))
             return (rc2);
@@ -503,19 +531,22 @@ RC IX_IndexHandle::FindLeaf(PageNum rootPage, void* pData, const RID &rid, PageN
     struct IX_NodeHeader *rootNH;
     RC rc = 0;
     PageNum recordPN;
+    SlotNum recordSN;
     rid.GetPageNum(recordPN);
+    rid.GetSlotNum(recordSN);
     struct MBR tempmbr = *(struct MBR*)pData;
     if((rc = pfh.GetThisPage(rootPage, rootPH)) || (rc = rootPH.GetData((char*&)rootNH)))
         return rc;
     struct IX_NodeEntry *entries = (struct IX_NodeEntry*)((char*&)rootNH + header.entryOffset_N);
     if(rootNH->isLeaf){
         for(int i = 0; i < rootNH->num_entries; i++){
-            if(IsEqualMBR(tempmbr,entries[i].mbr) && entries[i].page == recordPN){
+            if(Overlap(tempmbr,entries[i].mbr) && entries[i].page == recordPN && entries[i].slot == recordSN){
+            //if(IsEqualMBR(tempmbr,entries[i].mbr)){
                 result = rootPage;
                 return rc;
             }
         }
-        rc = 1; //not found
+        result = -1; //not found
         return rc;
     }
     else{
@@ -527,14 +558,14 @@ RC IX_IndexHandle::FindLeaf(PageNum rootPage, void* pData, const RID &rid, PageN
                 }
             }
         }
-        rc = 1;
+        result = -1;
         return rc;
     }
 
 }
 
 //for insertion
-RC IX_IndexHandle::CreateNode(PF_PageHandle &ph, PageNum &page, char *nData, bool isLeaf, PageNum parent, int myindex){
+RC IX_IndexHandle::CreateNode(PF_PageHandle &ph, PageNum &page, char *&nData, bool isLeaf, PageNum parent, int myindex){
     RC rc = 0;
     if((rc = pfh.AllocatePage(ph)) || (rc = ph.GetPageNum(page)))
   	    return rc;
@@ -567,6 +598,7 @@ RC IX_IndexHandle::FindPrevIndex(struct IX_NodeHeader *nHeader, int thisindex, i
     struct IX_NodeEntry *entries = (struct IX_NodeEntry*)((char*)nHeader + header.entryOffset_N);
     int prev_idx;
     int cur_idx = nHeader->firstSlot;
+    prev_idx = cur_idx;
     while(cur_idx != thisindex){
         prev_idx = cur_idx;
         cur_idx = entries[prev_idx].nextSlot;
@@ -624,7 +656,7 @@ RC IX_IndexHandle::ChooseLeaf(PageNum rPN, void *pData, PageNum &result){
 	result = nextPageNum;
     return rc;
 }
-
+//choose the node to insert internal entries
 RC IX_IndexHandle::ChooseNode(struct IX_NodeEntry &nEntry, int depth, int height, PageNum &result){
     RC rc = 0;
     PageNum rPN = header.rootPage;
@@ -652,7 +684,7 @@ RC IX_IndexHandle::ChooseNode(struct IX_NodeEntry &nEntry, int depth, int height
         float minExpansion;
         char *value = (char*)&entries[index].mbr;
         minExpansion = getExpansion((void*)value, pData);
-        index++;
+        index = entries[index].nextSlot;
         while(index != -1){
             char *value = (char*)&entries[index].mbr;
             float tempExpansion = getExpansion((void*)value, pData);
@@ -662,7 +694,7 @@ RC IX_IndexHandle::ChooseNode(struct IX_NodeEntry &nEntry, int depth, int height
                     minExpansion = tempExpansion;
                 }
             }
-            index++;
+            index = entries[index].nextSlot;
         }
         if((rc = pfh.MarkDirty(nextPageNum)) || (rc = pfh.UnpinPage(nextPageNum)))
             return (rc);
@@ -795,7 +827,7 @@ RC IX_IndexHandle::SplitNode(struct IX_NodeHeader *h1, struct IX_NodeHeader *new
     struct MBR m2;
     std::vector<bool> table(h1->num_entries + 1, false);
     int total = table.size();
-    PickSeeds(entries, h1->num_entries, pData, seed1, seed2);
+    PickSeeds(h1,pData, seed1, seed2);
     g1.push_back(seed1);
     g2.push_back(seed2);
     if(seed1 == h1->num_entries){
@@ -893,9 +925,10 @@ RC IX_IndexHandle::SplitNode(struct IX_NodeHeader *h1, struct IX_NodeHeader *new
         return rc;
     }
     newPageNum = newPage;
-    struct IX_NodeEntry *oldentries = (struct IX_NodeEntry*)malloc(h1->num_entries*sizeof(struct IX_NodeEntry));
+    std::vector<struct IX_NodeEntry> oldentries;
+    //struct IX_NodeEntry *oldentries = (struct IX_NodeEntry*)malloc(h1->num_entries*sizeof(struct IX_NodeEntry));
     for(int k = 0; k < h1->num_entries; k++){
-        oldentries[k] = entries[k];
+        oldentries.push_back(entries[k]);
     }
     struct IX_NodeEntry *newEntries = (struct IX_NodeEntry *)((char*)newHeader + header.entryOffset_N);
     newHeader->isEmpty = false;
@@ -917,7 +950,8 @@ RC IX_IndexHandle::SplitNode(struct IX_NodeHeader *h1, struct IX_NodeHeader *new
     }
     entries[k].nextSlot = -1;
     newEntries[k].nextSlot = -1;
-    for(int p = 0; p < g1.size(); p++){
+    int p;
+    for(p = 0; p < g1.size() - 1; p++){
         int previndex = g1[p];
         if(previndex != total - 1){
             entries[p].status = oldentries[previndex].status;
@@ -925,6 +959,7 @@ RC IX_IndexHandle::SplitNode(struct IX_NodeHeader *h1, struct IX_NodeHeader *new
             //entries[p].page = oldentries[previndex].page;
             entries[p].slot = oldentries[previndex].slot;
             entries[p].mbr = oldentries[previndex].mbr;
+            entries[p].nextSlot = p + 1;
         }
         else{
             entries[p].status = 0;
@@ -932,9 +967,11 @@ RC IX_IndexHandle::SplitNode(struct IX_NodeHeader *h1, struct IX_NodeHeader *new
             entries[p].page = newentry.page;
             entries[p].slot = newentry.slot;
             entries[p].mbr = newentry.mbr;
+            entries[p].nextSlot = p + 1;
         }
     }
-    for(int p = 0; p < g2.size(); p++){
+    entries[p].nextSlot = -1;
+    for(p = 0; p < g2.size() - 1; p++){
         int previndex = g2[p];
         if(previndex != total - 1){
             newEntries[p].status = oldentries[previndex].status;
@@ -942,6 +979,7 @@ RC IX_IndexHandle::SplitNode(struct IX_NodeHeader *h1, struct IX_NodeHeader *new
             //newEntries[p].page = oldentries[previndex].page;
             newEntries[p].slot = oldentries[previndex].slot;
             newEntries[p].mbr = oldentries[previndex].mbr;
+            newEntries[p].nextSlot = p + 1;
         }
         else{
             newEntries[p].status = 0;
@@ -949,8 +987,10 @@ RC IX_IndexHandle::SplitNode(struct IX_NodeHeader *h1, struct IX_NodeHeader *new
             //newEntries[p].childpage = newentry.childpage;
             newEntries[p].slot = newentry.slot;
             newEntries[p].mbr = newentry.mbr;
+            newEntries[p].nextSlot = p + 1;
         }
     }
+    newEntries[p].nextSlot = -1;
     if((rc = pfh.MarkDirty(newPage)) || (rc = pfh.UnpinPage(newPage)))
         return (rc);
     return rc;
@@ -970,7 +1010,7 @@ int IX_IndexHandle::PickNext(struct IX_NodeEntry *entries, std::vector<bool> &ta
         }
     }
     while(i < table.size() - 1){
-        if(!table[i]){
+        if(!table[i] && entries[i].status >= 0){
             float d1 = getExpansion((void*)&m1, (void*)&entries[i].mbr);
             float d2 = getExpansion((void*)&m2, (void*)&entries[i].mbr);
             float diff = d1 > d2 ? d1 - d2 : d2 - d1;
@@ -978,39 +1018,42 @@ int IX_IndexHandle::PickNext(struct IX_NodeEntry *entries, std::vector<bool> &ta
                 result = i;
                 maxd = diff;
             }
-        } 
+        }
+        i++;
     }
     return result;  
 }
 
 
-RC IX_IndexHandle::PickSeeds(struct IX_NodeEntry *entries, int NumEntries, void *pData, int &index1, int &index2){
+RC IX_IndexHandle::PickSeeds(struct IX_NodeHeader *h1, void *pData, int &index1, int &index2){
     int i1, i2;
+    struct IX_NodeEntry *entries = (struct IX_NodeEntry*)((char*)h1 + header.entryOffset_N);
     //struct MBR temp = *(struct MBR*)pData;
     i1 = 1;
     //i2 = 1;
     RC rc = 0;
-    float maxWaste = getExpansion((void*)&entries[0].mbr,pData) - getArea(pData);
-    index1 = 0;
-    index2 = NumEntries; //indicate pData
-    while(i1 < NumEntries){
+    float maxWaste = getExpansion((void*)&entries[h1->firstSlot].mbr,pData) - getArea(pData);
+    index1 = h1->firstSlot;
+    index2 = h1->num_entries; //indicate pData,the to-be-inserted entry
+    while(i1 < h1->num_entries && i1 >= 0){
         float tempWaste = getExpansion((void*)&entries[i1].mbr,pData) - getArea(pData);
         if(tempWaste > maxWaste){
             index1 = i1;
             maxWaste = tempWaste;
         }
-        i1++;
+        i1 = entries[i1].nextSlot;
     }
     i1 = 0;
-    while(i1 < NumEntries - 1){
+    while(i1 < h1->num_entries - 1){
         i2 = i1 + 1;
-        while(i2 < NumEntries){
+        while(i2 < h1->num_entries){
             float tempWaste = getExpansion((void*)&entries[i1].mbr, (void*)&entries[i2].mbr) - getArea((void*)&entries[i2].mbr);
             if(tempWaste > maxWaste){
                 index1 = i1;
                 index2 = i2;
                 maxWaste = tempWaste;
             }
+            i2++;
         }
         i1++;
     }
@@ -1069,16 +1112,22 @@ RC IX_IndexHandle::AdjustTree(PageNum pn1, PageNum pn2){
             return rc;
         L->parentPage = newParentPN;
         LL->parentPage = newParentPN;
+        L->myindex = 0;
+        LL->myindex = 1;
+        newRoot->isEmpty = false;
+        newRoot->isLeaf = false;
         newRoot->num_entries = 2;
         newRoot->firstSlot = 0;
         newRoot->freeSlot = 2;
+        newRoot->parentPage = -1;
         rootPH = newParentPH;
         struct IX_NodeEntry *entries = (struct IX_NodeEntry*)((char*)newRoot + header.entryOffset_N);
         entries[0].status = 0;
+        entries[0].nextSlot = 1;
         entries[1].status = 0;
         entries[0].page = pn1;
         entries[1].page = pn2;
-        
+        entries[1].nextSlot = -1;
         entries[0].mbr = mbr1;
         entries[1].mbr = mbr2;
         if((rc = pfh.MarkDirty(newParentPN)) || (rc = pfh.UnpinPage(newParentPN)))
@@ -1096,10 +1145,29 @@ RC IX_IndexHandle::AdjustTree(PageNum pn1, PageNum pn2){
         parentHeader->num_entries++;
         pentries[L->myindex].page = pn1;
         pentries[L->myindex].mbr = mbr1;
+
         pentries[LL->myindex].status = 0;
         pentries[LL->myindex].page = pn2;
         pentries[LL->myindex].mbr = mbr2;
         parentHeader->freeSlot = pentries[LL->myindex].nextSlot;
+        parentHeader->isEmpty = false;
+        parentHeader->isLeaf = false;
+        pentries[LL->myindex].nextSlot = -1;
+        int prevIndex;
+        FindPrevIndex(parentHeader,-1,prevIndex);
+        if(prevIndex < 0){
+            parentHeader->firstSlot = L->myindex;
+        }
+        else{
+            pentries[prevIndex].nextSlot = L->myindex;
+        }
+        FindPrevIndex(parentHeader,-1,prevIndex);
+        if(prevIndex < 0){
+            parentHeader->firstSlot = LL->myindex;
+        }
+        else{
+            pentries[prevIndex].nextSlot = LL->myindex;
+        }
         struct MBR current_mbr;
         getMBR(pentries, parentHeader->num_entries, current_mbr);
         AdjustTree(parentHeader,current_mbr);

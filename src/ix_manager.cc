@@ -64,8 +64,10 @@ RC IX_Manager::CreateIndex(const char *fileName, int indexNo,
 	    return rc;
 	}
 	//std::cout<<"file allocated"<<"\n";
-	int max_entries = floor((PF_PAGE_SIZE - sizeof(struct IX_NodeHeader))/(sizeof(struct IX_NodeEntry)));
-	int max_buckets = floor((PF_PAGE_SIZE - sizeof(struct IX_BucketHeader))/(sizeof(struct IX_BucketEntry)));
+	//int max_entries = floor((PF_PAGE_SIZE - sizeof(struct IX_NodeHeader))/(sizeof(struct IX_NodeEntry)));
+	//int max_buckets = floor((PF_PAGE_SIZE - sizeof(struct IX_BucketHeader))/(sizeof(struct IX_BucketEntry)));
+	int max_entries = 2;
+	int max_buckets = 2;
 	header->attr_type = attrType;
 	header->attr_length = attrLength;
 	header->M = max_entries;

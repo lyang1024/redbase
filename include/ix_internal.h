@@ -31,7 +31,7 @@ struct IX_NodeEntry{
 	int status; //if the entry contains duplicate values(1) or
 	            //empty(-1) or
                 //singe value(0)	
-	int nextSlot; //the pointer to the next slot (in the node),-1 if reach the end, 0 if not assigned
+	int nextSlot; //the pointer to the next slot (in the node),-1 if reach the end
 	PageNum page; //Record page number it points to
     //PageNum childpage;
 	

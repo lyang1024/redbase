@@ -65,7 +65,7 @@ private:
 	//some helper methods
 	RC ChooseLeaf(PageNum rPN, void *pData, PageNum &result);
 	RC ChooseNode(struct IX_NodeEntry &nEntry, int depth, int height, PageNum &result);
-    RC CreateNode(PF_PageHandle &ph, PageNum &page, char *nData, bool isLeaf, PageNum parent, int myindex);
+    RC CreateNode(PF_PageHandle &ph, PageNum &page, char *&nData, bool isLeaf, PageNum parent, int myindex);
 	RC InsertToBucket(PageNum bucketPage, const RID &rid);
 	RC CreateBucket(PageNum &page);
     RC FindPrevIndex(struct IX_NodeHeader *nHeader, int thisindex, int &previndex);
@@ -76,7 +76,7 @@ private:
     void adjustMBR(struct MBR &m1, struct MBR m2);
     RC SplitNode(struct IX_NodeHeader *h1, struct IX_NodeHeader *newHeader, struct IX_NodeEntry newentry, PageNum &newPageNum);
     int PickNext(struct IX_NodeEntry *entries, std::vector<bool> &table, void* pData, struct MBR m1, struct MBR m2);
-    RC PickSeeds(struct IX_NodeEntry *entries, int NumEntries, void *pData, int &index1, int &index2);
+    RC PickSeeds(struct IX_NodeHeader *h1,void *pData, int &index1, int &index2);
     void getMBR(struct IX_NodeEntry *entries, int numEntries, struct MBR &resultmbr);
     RC AdjustTree(struct IX_NodeHeader *chosenleaf, struct MBR mbr);
     RC AdjustTree(PageNum pn1, PageNum pn2);

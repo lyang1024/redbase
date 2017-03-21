@@ -68,7 +68,7 @@ RC IX_IndexScan::OpenScan(const IX_IndexHandle &indexHandle,
 {
   // Implement this
     RC rc = 0;
-    std::cout<<"Openning scan**********************************"<<"\n";
+
     if(openScan == true || compOp != OVERLAP_OP) // makes sure that the scan is not already open
         return (IX_INVALIDSCAN);              // and disallows NE_OP comparator
 /*
